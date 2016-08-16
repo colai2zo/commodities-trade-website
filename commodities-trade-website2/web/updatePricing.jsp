@@ -16,8 +16,9 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Commodities Trading | Update Pricing</title>
         <link href="style.css" media="screen" rel="stylesheet" type="text/css"/>
+        <script src="verifyAdmin.js"></script>
     </head>
-    <body>
+    <body onload="updatePricing()">
         <div id="header" align="center" style="padding-bottom: 20px">
         <h1>Update Pricing</h1>
         <form name="SubmitForm" action="previewChanges.jsp" method="POST">
@@ -333,21 +334,16 @@
             var date = new Date();
             var offset = 0;
             var result = null;
-
             if ('undefined' === typeof year || null === year) {
                 year = date.getFullYear();
             }
-
             if ('undefined' === typeof month || null === month) {
                 month = date.getMonth();
             }
-
             do {
                 result = new Date(year, month, offset);
-
                 offset--;
             } while (0 === result.getDay() || 6 === result.getDay());
-
             return result;
             }
             

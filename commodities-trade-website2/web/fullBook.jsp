@@ -17,8 +17,9 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Commodities Trading | Channel Partner Position</title>
         <link href="style.css" media="screen" rel="stylesheet" type="text/css"/>
+        <script src="verifyAdmin.js"></script>
     </head>
-    <body>
+    <body onload="verifyAdmin()">
         <div id="header" align="center">
             <h1>Complete Book</h1><br>
             
