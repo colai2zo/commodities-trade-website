@@ -4,8 +4,11 @@
     Author     : Dino
 --%>
 <%@page import="java.sql.*"%>
-<%@page import="com.dutchessdevelopers.commoditeswebsite.Brokers" %>
+<%@page import="com.dutchessdevelopers.commoditieswebsite.Brokers" %>
 <%Class.forName("com.mysql.jdbc.Driver");%>
+<%@page contentType="text/html" pageEncoding="UTF-8"%>
+<!DOCTYPE html>
+<html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Commodities Trading|Add Broker</title>
@@ -21,9 +24,7 @@
         <select name="partnerChooser" align="left">
             <option>Channel Partner 1</option>
         </select>
-            <% Brokers brokers = new Brokers();
-           ResultSet brokerData = brokers.getBroker(); 
-           System.out.println(brokerData);%>
+        <%Brokers brokers = new Brokers();%>
 	    <form name="brokerInfoForm" action="brokeroptions.jsp" method="post">
                 <table border="0" cellpadding="15">
                     <tbody>
@@ -37,14 +38,15 @@
                         </tr>
                     </tbody>
                 </table>
-                <input id="button" type="submit" value="Create Broker" name="submitBrokerInfoButton" onclick="formSubmision()"/>
+                <input id="button" type="submit" value="Create" name="submitButton" onclick="formSubmision()"/>
             </form>
-	</div>
-                <%
-                        if (request.getParameter("submitBrokerInfoButton") != null)
-                            brokers.insertBroker(request.getParameter("firstInput"), request.getParameter("lastInput"));
-                            System.out.println("INSERT BROKER TEST");
-                    %>    
+            <%
+                        if (request.getParameter("submitButton") == null){
+                            brokers.insertBroker("Alpha", "Dog");                            
+                            //brokers.insertBroker(request.getParameter("firstInput"), request.getParameter("lastInput"));
+                            System.out.println("INSERT BROKER TEST");}
+                    %>  
+	</div>            
     </body>
     <script> 
         function formSubmission(){

@@ -25,8 +25,7 @@
             </select> <br>
         <% Brokers brokers = new Brokers();
            ResultSet brokerData = brokers.getBroker(); 
-           brokers.insertBroker("John", "Joseph");
-           brokers.insertBroker("Chex", "Mix");
+           //brokers.insertBroker("Chex", "Mix");
            System.out.println("VIEWBROKER INSTANTIATION");%>
         <form name="submitForm" action="viewbroker.jsp">
 	<table border="1" cellpadding="15%">
@@ -41,8 +40,8 @@
 	    <tbody>
                 <% while(brokerData.next()) {%>
                 <tr>
-                    <td><input type="text" name="first" value="<%= brokerData.getString(1)%>" size="20px" /></td>
-		    <td><input type="text" name="last" value="<%= brokerData.getString(2)%>" size="20px" /></td>
+                    <td><input type="text" name="first" value="<%= brokerData.getString("first_name")%>" size="20px" /></td>
+		    <td><input type="text" name="last" value="<%= brokerData.getString("last_name")%>" size="20px" /></td>
                     <td>     
                             <input type="submit" value="SubmitUpdatedBroker" name="submitButton" />
                     </td>
@@ -57,7 +56,7 @@
 
         <%
             if(request.getParameter("submitButton") != null){
-                brokers.updateBroker(brokerData.getString(1),request.getParameter("first"),request.getParameter("last"));
+                brokers.updateBroker(brokerData.getString("first_name"),request.getParameter("first"),request.getParameter("last"));
             }
             if(request.getParameter("deleteBrokerButton") != null){
                 brokers.deleteBroker(request.getParameter("first"));

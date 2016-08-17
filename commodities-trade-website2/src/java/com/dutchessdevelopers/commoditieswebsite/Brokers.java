@@ -32,14 +32,14 @@ public class Brokers {
         try{
             connection = DriverManager.getConnection(URL,USERNAME,PASSWORD);
             getBroker = connection.prepareStatement("SELECT first_name,last_name"
-                    + "FROM broker;");
+                    + " FROM broker;");
             deleteBroker = connection.prepareStatement("DELETE FROM broker"
-                    + "WHERE first_name = ?;");
-            insertBroker = connection.prepareStatement("INSERT INTO broker"
-                    + "VALUES ?, ?;");
+                    + " WHERE first_name = ?;");
+            insertBroker = connection.prepareStatement("INSERT INTO broker (first_name,last_name)"
+                    + " VALUES(?,?);");
             updateBroker = connection.prepareStatement("UPDATE broker"
-                    + "SET (first_name = ?, last_name = ?)"
-                    + "WHERE (first_name=?);");   
+                    + " SET (first_name = ?, last_name = ?)"
+                    + " WHERE (first_name=?);");   
                     
         }catch(SQLException e){
             System.out.println("ERRROORRRR");
@@ -70,7 +70,7 @@ public class Brokers {
         try{
             //Replace question mark with SQL string that will place the variables.
             updateBroker.setString(1, firstName);
-            updateBroker.setString(2,lastName);
+            updateBroker.setString(2, lastName);
             updateBroker.setString(3, oldFirstName);
             result = updateBroker.executeUpdate(); 
         }catch(SQLException e){
@@ -91,6 +91,7 @@ public class Brokers {
             insertBroker.setString(2,lastName);
             result = insertBroker.executeUpdate();
         }catch(SQLException e){
+            System.out.println("insert error");
             e.printStackTrace();
         }
         return result;
