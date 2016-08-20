@@ -32,12 +32,13 @@ public class ChannelPartner {
     public ChannelPartner(){
         try{
             connection = DriverManager.getConnection(URL,USERNAME,PASSWORD);
-            getPartners = connection.prepareStatement("SELECT ? FROM channel_partners;");
+            getPartners = connection.prepareStatement("SELECT * FROM channel_partners;");
 
             deletePartners = connection.prepareStatement("DELETE FROM channel_partners"
                     + " WHERE id_code = ?;");
             insertPartners = connection.prepareStatement("INSERT INTO channel_partners"
-                    + " VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?);");
+                    + " (id_code,name,username,password,delta,vega,gamma,theta,timestamp)"
+                    + " VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?);");
             updateChannelPartners = connection.prepareStatement("UPDATE channel_partners"
                     + " SET id_code=?, name=?, username=?, password=?, delta=?, vega=?, gamma=?, theta=?, timestamp=?"
                     + " WHERE id_code=?;"); 
@@ -51,9 +52,8 @@ public class ChannelPartner {
      * @Param the columns needed, a string formatted for SQL Select * From code
      * @return a ResultSet object containing the requested information.
      */
-    public ResultSet getChannelPartners(String columnsNeeded){
+    public ResultSet getChannelPartners(){
         try{
-            getPartners.setString(1, columnsNeeded);
             resultSet = getPartners.executeQuery();
         }catch(SQLException e){
             e.printStackTrace();
@@ -65,11 +65,11 @@ public class ChannelPartner {
      * @param the data values for each column in the table.
      * @return 1 if success, 0 if fail.
      */
-    public int updateChannelPartners(String ID_Code, String name, String username, String password, double delta, double vega, double gamma, double theta, Timestamp timestamp){
+    public int updateChannelPartners(String id_code, String name, String username, String password, double delta, double vega, double gamma, double theta, Timestamp timestamp){
          int result=0;
         try{
             //Replace question mark with SQL string that will place the variables.
-            updateChannelPartners.setString(1,ID_Code);
+            updateChannelPartners.setString(1, id_code);
             updateChannelPartners.setString(2, name);
             updateChannelPartners.setString(3, username);
             updateChannelPartners.setString(4, password);
@@ -78,7 +78,7 @@ public class ChannelPartner {
             updateChannelPartners.setDouble(7, gamma);
             updateChannelPartners.setDouble(8, theta);
             updateChannelPartners.setTimestamp(9, timestamp);
-            updateChannelPartners.setString(10,ID_Code);
+            updateChannelPartners.setString(10, id_code);
             result = updateChannelPartners.executeUpdate();
         }catch(SQLException e){
             e.printStackTrace();
@@ -90,11 +90,11 @@ public class ChannelPartner {
      * @param the data values for each column in the table.
      * @return 1 if success, 0 if fail.
      */
-    public int insertChannelPartners(String ID_Code, String name, String username, String password, double delta, double vega, double gamma, double theta, Timestamp timestamp){
+    public int insertChannelPartners(String id_code, String name, String username, String password, double delta, double vega, double gamma, double theta, Timestamp timestamp){
         int result=0;
         try{
             //Replace question mark with SQL string that will place the variables.
-            insertPartners.setString(1,ID_Code);
+            insertPartners.setString(1, id_code);
             insertPartners.setString(2, name);
             insertPartners.setString(3, username);
             insertPartners.setString(4, password);
@@ -114,10 +114,10 @@ public class ChannelPartner {
      * @param the id number of the channel partner to be deleted.
      * @return 1 if success, 0 if fail.
      */
-    public int deleteChannelPartner(String ID_Code){
+    public int deleteChannelPartner(String id_code){
         int result = 0;
         try{
-           deletePartners.setString(1, ID_Code);
+           deletePartners.setString(1, id_code);
            result = deletePartners.executeUpdate();
         }catch(SQLException e){
             e.printStackTrace();

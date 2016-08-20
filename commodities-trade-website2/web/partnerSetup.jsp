@@ -54,7 +54,7 @@
                 ResultSet partnerData;
                 int num;
                 try{
-                partnerData = partners.getChannelPartners("*");
+                partnerData = partners.getChannelPartners();
                 partnerData.last();
                 num = partnerData.getRow();
                 } catch (NullPointerException e){
@@ -63,7 +63,7 @@
                 
             if(request.getParameter("submitChannelInfoButton") != null){
                 Timestamp currentTimestamp = new Timestamp(Calendar.getInstance().getTime().getTime());
-                partners.insertChannelPartners(num, request.getParameter("nameInput").substring(0, request.getParameter("nameInput").indexOf(" ")), request.getParameter("nameInput").substring(request.getParameter("nameInput").indexOf(" ")), request.getParameter("userNameInput"), request.getParameter("passwordInput"), 0,0,0,0, currentTimestamp);
+                partners.insertChannelPartners(Integer.toString(num), request.getParameter("nameInput"), request.getParameter("userNameInput"), request.getParameter("passwordInput"), 0,0,0,0, currentTimestamp);
                 System.out.println("INSERTION");
             }
         %>
