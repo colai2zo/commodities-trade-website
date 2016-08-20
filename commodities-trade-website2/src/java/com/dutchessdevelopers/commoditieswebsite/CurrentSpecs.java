@@ -34,12 +34,12 @@ public class CurrentSpecs {
             getSpecs = connection.prepareStatement("SELECT ? FROM past_spec_updates;");
 
             deleteSpecs = connection.prepareStatement("DELETE FROM past_spec_updates"
-                    + "WHERE timestamp = ?;");
+                    + " WHERE timestamp = ?;");
             insertSpecs = connection.prepareStatement("INSERT INTO past_spec_updates"
-                    + "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);");
+                    + " VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);");
             updateSpecs = connection.prepareStatement("UPDATE farmers"
-                    + "SET month=?, futures=?, volatility=?, volatility_spread=?, price=?, markup=?, final_price=?, product_name=?, timestamp=?, market=?"
-                    + "WHERE timestamp=?;"); 
+                    + " SET month=?, futures=?, volatility=?, volatility_spread=?, price=?, markup=?, final_price=?, product_name=?, timestamp=?, market=?"
+                    + " WHERE timestamp=?;"); 
                     
         }catch(SQLException e){
             e.printStackTrace();

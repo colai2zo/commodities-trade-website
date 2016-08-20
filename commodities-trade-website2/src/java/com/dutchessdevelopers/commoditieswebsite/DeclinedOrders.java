@@ -33,9 +33,9 @@ public class DeclinedOrders {
             getOrders = connection.prepareStatement("SELECT ? FROM declined_orders;");
 
             deleteOrders = connection.prepareStatement("DELETE FROM declined_orders"
-                    + "WHERE order_number = ?;");
+                    + " WHERE order_number = ?;");
             insertOrders = connection.prepareStatement("INSERT INTO declined_orders"
-                    + "VALUES (?, ?, ?, ?, ?, ?, ?, ?);");
+                    + " VALUES (?, ?, ?, ?, ?, ?, ?, ?);");
                     
         }catch(SQLException e){
             e.printStackTrace();

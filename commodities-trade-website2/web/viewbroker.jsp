@@ -25,9 +25,10 @@
             </select> <br>
         <% Brokers brokers = new Brokers();
            ResultSet brokerData = brokers.getBroker(); 
+           int brokerCount = 0;
            //brokers.insertBroker("Chex", "Mix");
            System.out.println("VIEWBROKER INSTANTIATION");%>
-        <form name="submitForm" action="viewbroker.jsp">
+        <form name="submitForm" action="viewbroker.jsp" method="POST">
 	<table border="1" cellpadding="15%">
 	    <thead>
 		<tr>
@@ -38,16 +39,19 @@
 		</tr>
 	    </thead>
 	    <tbody>
-                <% while(brokerData.next()) {%>
+                <% while(brokerData.next()) {
+                brokerCount = brokerData.getRow();
+                %>
                 <tr>
-                    <td><input type="text" name="first" value="<%= brokerData.getString("first_name")%>" size="20px" /></td>
-		    <td><input type="text" name="last" value="<%= brokerData.getString("last_name")%>" size="20px" /></td>
+                    <td><input type="text" name="<%= ("first" + brokerCount)%>" value="<%= brokerData.getString("first_name")%>" size="20px" /></td>
+                    <td><input type="text" name="<%= ("last" + brokerCount)%>" value="<%= brokerData.getString("last_name")%>" size="20px" /></td>
                     <td>     
-                            <input type="submit" value="SubmitUpdatedBroker" name="submitButton" />
+                            <input type="submit" value="Update" name="<%= ("submitButton" + brokerCount)%>" />
                     </td>
-		    <td>
-                            <input type="submit" value="delete" name="deleteBrokerButton"/>
+                    <td>
+                            <input type="submit" value="Delete" name="<%= ("deleteButton" + brokerCount)%>"/>
                     </td>
+                    
                 </tr>
                 <% } %>
 	    </tbody>
@@ -55,14 +59,29 @@
         </form>
 
         <%
-            if(request.getParameter("submitButton") != null){
-                brokers.updateBroker(brokerData.getString("first_name"),request.getParameter("first"),request.getParameter("last"));
+            int count=0;
+            brokerData.beforeFirst();
+            while (brokerData.next()){
+                count++;
+                if(request.getParameter("submitButton" + count) != null){
+                    System.out.println("UPDATE");
+                    brokers.updateBroker(brokerData.getString("first_name"),request.getParameter("first" + count),request.getParameter("last" + count));
+                    response.setHeader("Refresh", "0; URL=viewbroker.jsp");
+                }
             }
-            if(request.getParameter("deleteBrokerButton") != null){
-                brokers.deleteBroker(request.getParameter("first"));
+            count = 0;
+            brokerData.beforeFirst();
+            while (brokerData.next()){
+                count++;
+                if (request.getParameter("deleteButton" + count) != null){
+                    System.out.println("DELETION");
+                    brokers.deleteBroker(request.getParameter("first" + count));
+                    response.setHeader("Refresh", "0; URL=viewbroker.jsp");
+                }
             }
         %>
 	</div>
        
     </body>
+    
 </html>

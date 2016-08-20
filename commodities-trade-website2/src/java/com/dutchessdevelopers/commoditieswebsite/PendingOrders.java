@@ -33,9 +33,9 @@ public class PendingOrders {
             getOrders = connection.prepareStatement("SELECT ? FROM pending_orders;");
 
             deleteOrders = connection.prepareStatement("DELETE FROM pending_orders"
-                    + "WHERE order_number = ?;");
+                    + " WHERE order_number = ?;");
             insertOrders = connection.prepareStatement("INSERT INTO pending_orders"
-                    + "VALUES (?, ?, ?, ?, ?, ?, ?, ?);");
+                    + " VALUES (?, ?, ?, ?, ?, ?, ?, ?);");
                     
         }catch(SQLException e){
             e.printStackTrace();

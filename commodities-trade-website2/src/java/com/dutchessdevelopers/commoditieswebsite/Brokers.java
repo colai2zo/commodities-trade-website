@@ -34,12 +34,12 @@ public class Brokers {
             getBroker = connection.prepareStatement("SELECT first_name,last_name"
                     + " FROM broker;");
             deleteBroker = connection.prepareStatement("DELETE FROM broker"
-                    + " WHERE first_name = ?;");
+                    + " WHERE first_name=?;");
             insertBroker = connection.prepareStatement("INSERT INTO broker (first_name,last_name)"
                     + " VALUES(?,?);");
             updateBroker = connection.prepareStatement("UPDATE broker"
-                    + " SET (first_name = ?, last_name = ?)"
-                    + " WHERE (first_name=?);");   
+                    + " SET first_name=?,last_name=?"
+                    + " WHERE first_name=?;");   
                     
         }catch(SQLException e){
             System.out.println("ERRROORRRR");
@@ -74,6 +74,7 @@ public class Brokers {
             updateBroker.setString(3, oldFirstName);
             result = updateBroker.executeUpdate(); 
         }catch(SQLException e){
+            System.out.println("UPDATE ERROR");
             e.printStackTrace();
         }
         return result;
@@ -85,6 +86,7 @@ public class Brokers {
      */
     public int insertBroker(String firstName, String lastName){
         int result=0;
+        
         try{
             //Replace question mark with SQL string that will place the variables.
             insertBroker.setString(1, firstName);

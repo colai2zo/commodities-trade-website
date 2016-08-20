@@ -34,12 +34,12 @@ public class Employee {
             getEmployee = connection.prepareStatement("SELECT ? FROM employees;");
 
             fireEmployee = connection.prepareStatement("DELETE FROM employees"
-                    + "WHERE username = ?;");
+                    + " WHERE username = ?;");
             insertEmployee = connection.prepareStatement("INSERT INTO employees"
-                    + "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?);");
+                    + " VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?);");
             updateEmployee = connection.prepareStatement("UPDATE employee"
-                    + "SET first_name=?, last_name=?, username=?, password=?, admin=?, book_management=?, reporting=?, pricing=?, timestamp=?"
-                    + "WHERE username=?;"); 
+                    + " SET first_name=?, last_name=?, username=?, password=?, admin=?, book_management=?, reporting=?, pricing=?, timestamp=?"
+                    + " WHERE username=?;"); 
                     
         }catch(SQLException e){
             e.printStackTrace();

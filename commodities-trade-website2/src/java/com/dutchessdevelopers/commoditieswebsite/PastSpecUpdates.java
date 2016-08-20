@@ -33,9 +33,9 @@ public class PastSpecUpdates {
             getSpecs = connection.prepareStatement("SELECT ? FROM past_spec_updates;");
 
             deleteSpecs = connection.prepareStatement("DELETE FROM past_spec_updates"
-                    + "WHERE timestamp = ?;");
+                    + " WHERE timestamp = ?;");
             insertSpecs = connection.prepareStatement("INSERT INTO past_spec_updates"
-                    + "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);");
+                    + " VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);");
                     
         }catch(SQLException e){
             e.printStackTrace();

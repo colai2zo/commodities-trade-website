@@ -4,6 +4,10 @@
     Author     : Joey
 --%>
 
+<%@page import="java.sql.*"%>
+<%@page import="java.util.Calendar"%>
+<%@page import="com.dutchessdevelopers.commoditieswebsite.ChannelPartner" %>
+<%Class.forName("com.mysql.jdbc.Driver");%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -19,7 +23,9 @@
             <h2>Enter the following information to setup a channel partner:</h2>
         </div>
         <div id="central" align="center">
-            <form name="partnerInfoForm" action="AdminHomePage.jsp" method="post">
+            <%ChannelPartner partners = new ChannelPartner();
+            %>
+            <form name="partnerInfoForm" action="partnerSetup.jsp" method="post">
                 <table border="0" cellpadding="15">
                     <tbody>
                         <tr>
@@ -34,22 +40,37 @@
                         </tr>
                         <tr>
                             <td>Password: </td>
-                            <td><input id="pass" type="text" name="passwordInput" value="" size="50" style="padding:10px 0px 10px 0px" /></td>
+                            <td><input id="pass" type="text" name="passwordInput" value="<%=partners.createPassword()%>" size="50" style="padding:10px 0px 10px 0px" /></td>
                         </tr>
                     </tbody>
                 </table>
                 <input id="button" type="submit" value="Create Channel Partner" name="submitChannelInfoButton" onclick="formSubmission()"/>
+                 
             </form>
+            <form name="returnForm" action="AdminHomePage.jsp" method="post">
+                <input id="button" type="submit" value="Back to Admin Home Page" name="returnButton" />
+            </form>
+            <%
+                ResultSet partnerData;
+                int num;
+                try{
+                partnerData = partners.getChannelPartners("*");
+                partnerData.last();
+                num = partnerData.getRow();
+                } catch (NullPointerException e){
+                    num = 0;
+                }
+                
+            if(request.getParameter("submitChannelInfoButton") != null){
+                Timestamp currentTimestamp = new Timestamp(Calendar.getInstance().getTime().getTime());
+                partners.insertChannelPartners(num, request.getParameter("nameInput").substring(0, request.getParameter("nameInput").indexOf(" ")), request.getParameter("nameInput").substring(request.getParameter("nameInput").indexOf(" ")), request.getParameter("userNameInput"), request.getParameter("passwordInput"), 0,0,0,0, currentTimestamp);
+                System.out.println("INSERTION");
+            }
+        %>
         </div>
         
     </body>
     <script>        
-        function verifyAdmin(){
-            if(document.cookie.indexOf("AdminSession=Valid") === -1){
-                window.alert("You are not authorized to access this page. Please login.");
-                document.location.href = "login.jsp";
-            }
-        }
         function formSubmission(){
             if(document.getElementById("name").value === "" || document.getElementById("user").value === "" || document.getElementById("pass").value === "")
             {

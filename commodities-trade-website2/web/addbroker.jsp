@@ -25,7 +25,7 @@
             <option>Channel Partner 1</option>
         </select>
         <%Brokers brokers = new Brokers();%>
-	    <form name="brokerInfoForm" action="brokeroptions.jsp" method="post">
+	    <form name="brokerInfoForm" action="addbroker.jsp" method="post">
                 <table border="0" cellpadding="15">
                     <tbody>
                         <tr>
@@ -38,14 +38,18 @@
                         </tr>
                     </tbody>
                 </table>
-                <input id="button" type="submit" value="Create" name="submitButton" onclick="formSubmision()"/>
+                <input id="button" type="submit" value="Submit" name="submitButton" onclick="formSubmission()"/>
             </form>
+            <form name="returnForm" action="brokeroptions.jsp" method="post">
+            <input id="button" type="submit" value="Back to Broker Options" name="returnButton"/>
+            </form>
+            
             <%
-                        if (request.getParameter("submitButton") == null){
-                            brokers.insertBroker("Alpha", "Dog");                            
-                            //brokers.insertBroker(request.getParameter("firstInput"), request.getParameter("lastInput"));
-                            System.out.println("INSERT BROKER TEST");}
-                    %>  
+            if(request.getParameter("submitButton") != null){
+                brokers.insertBroker(request.getParameter("firstInput"), request.getParameter("lastInput"));
+                System.out.println("INSERTION");
+            }
+        %>
 	</div>            
     </body>
     <script> 

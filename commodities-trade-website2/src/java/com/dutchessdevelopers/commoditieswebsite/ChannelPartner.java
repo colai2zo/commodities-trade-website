@@ -5,6 +5,7 @@
  */
 package com.dutchessdevelopers.commoditieswebsite;
 import java.sql.*;
+import java.lang.Math;
 
 /**
  * 
@@ -14,7 +15,7 @@ public class ChannelPartner {
     //These Keys will allow me to gain access to the database.
     String URL = "jdbc:mysql://localhost:3306/commodities_trading";
     String USERNAME = "root";
-    String PASSWORD = "maps827";
+    String PASSWORD = "1234";
     
     /** Database Level Variables **/
     Connection connection = null;
@@ -34,12 +35,12 @@ public class ChannelPartner {
             getPartners = connection.prepareStatement("SELECT ? FROM channel_partners;");
 
             deletePartners = connection.prepareStatement("DELETE FROM channel_partners"
-                    + "WHERE id_number = ?;");
+                    + " WHERE id_code = ?;");
             insertPartners = connection.prepareStatement("INSERT INTO channel_partners"
-                    + "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?);");
+                    + " VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?);");
             updateChannelPartners = connection.prepareStatement("UPDATE channel_partners"
-                    + "SET id_number=?, first_name=?, last_name=?, username=?, password=?, delta=?, vega=?, gamma=?, theta=?, timestamp=?"
-                    + "WHERE id_number=?;"); 
+                    + " SET id_code=?, name=?, username=?, password=?, delta=?, vega=?, gamma=?, theta=?, timestamp=?"
+                    + " WHERE id_code=?;"); 
                     
         }catch(SQLException e){
             e.printStackTrace();
@@ -64,21 +65,20 @@ public class ChannelPartner {
      * @param the data values for each column in the table.
      * @return 1 if success, 0 if fail.
      */
-    public int updateChannelPartners(int ID_Number, String firstName, String lastName, String username, String password, double delta, double vega, double gamma, double theta, Timestamp timestamp){
+    public int updateChannelPartners(String ID_Code, String name, String username, String password, double delta, double vega, double gamma, double theta, Timestamp timestamp){
          int result=0;
         try{
             //Replace question mark with SQL string that will place the variables.
-            updateChannelPartners.setInt(1,ID_Number);
-            updateChannelPartners.setString(2, firstName);
-            updateChannelPartners.setString(3, lastName);
-            updateChannelPartners.setString(4, username);
-            updateChannelPartners.setString(5, password);
-            updateChannelPartners.setDouble(6, delta);
-            updateChannelPartners.setDouble(7, vega);
-            updateChannelPartners.setDouble(8, gamma);
-            updateChannelPartners.setDouble(9, theta);
-            updateChannelPartners.setTimestamp(10, timestamp);
-            updateChannelPartners.setInt(11,ID_Number);
+            updateChannelPartners.setString(1,ID_Code);
+            updateChannelPartners.setString(2, name);
+            updateChannelPartners.setString(3, username);
+            updateChannelPartners.setString(4, password);
+            updateChannelPartners.setDouble(5, delta);
+            updateChannelPartners.setDouble(6, vega);
+            updateChannelPartners.setDouble(7, gamma);
+            updateChannelPartners.setDouble(8, theta);
+            updateChannelPartners.setTimestamp(9, timestamp);
+            updateChannelPartners.setString(10,ID_Code);
             result = updateChannelPartners.executeUpdate();
         }catch(SQLException e){
             e.printStackTrace();
@@ -90,20 +90,19 @@ public class ChannelPartner {
      * @param the data values for each column in the table.
      * @return 1 if success, 0 if fail.
      */
-    public int insertChannelPartners(int ID_Number, String firstName, String lastName, String username, String password, double delta, double vega, double gamma, double theta, Timestamp timestamp){
+    public int insertChannelPartners(String ID_Code, String name, String username, String password, double delta, double vega, double gamma, double theta, Timestamp timestamp){
         int result=0;
         try{
             //Replace question mark with SQL string that will place the variables.
-            insertPartners.setInt(1,ID_Number);
-            insertPartners.setString(2, firstName);
-            insertPartners.setString(3, lastName);
-            insertPartners.setString(4, username);
-            insertPartners.setString(5, password);
-            insertPartners.setDouble(6, delta);
-            insertPartners.setDouble(7, vega);
-            insertPartners.setDouble(8, gamma);
-            insertPartners.setDouble(9, theta);
-            insertPartners.setTimestamp(10, timestamp);
+            insertPartners.setString(1,ID_Code);
+            insertPartners.setString(2, name);
+            insertPartners.setString(3, username);
+            insertPartners.setString(4, password);
+            insertPartners.setDouble(5, delta);
+            insertPartners.setDouble(6, vega);
+            insertPartners.setDouble(7, gamma);
+            insertPartners.setDouble(8, theta);
+            insertPartners.setTimestamp(9, timestamp);
             result = insertPartners.executeUpdate();
         }catch(SQLException e){
             e.printStackTrace();
@@ -115,14 +114,43 @@ public class ChannelPartner {
      * @param the id number of the channel partner to be deleted.
      * @return 1 if success, 0 if fail.
      */
-    public int deleteChannelPartner(int ID_Number){
+    public int deleteChannelPartner(String ID_Code){
         int result = 0;
         try{
-           deletePartners.setInt(1, ID_Number);
+           deletePartners.setString(1, ID_Code);
            result = deletePartners.executeUpdate();
         }catch(SQLException e){
             e.printStackTrace();
         }
         return result;
     }
+    
+    public String createPassword(){
+        String password = "";
+        String character = "";
+        int numOrLet;
+        int letterChoice;
+        int numberChoice;
+        String[] alphabet = {"a","b","c","d","e","f","g","h","i","j","k","l","m","n","o","p","q","r","s","t","u","v","w","x","y","z"};
+        while(password.length() < 7)
+        {
+            numOrLet = (int)(Math.random()*2) + 1;
+            
+            //letter
+            if(numOrLet == 1)
+            {
+                letterChoice = (int)(Math.random()*26);
+                character = alphabet[letterChoice];
+            }
+            //number
+            else if (numOrLet == 2)
+            {
+                numberChoice = (int)(Math.random()*10);
+                character = Integer.toString(numberChoice);
+            }
+            password += character;
+        }
+        return password;
+    }
+
 }

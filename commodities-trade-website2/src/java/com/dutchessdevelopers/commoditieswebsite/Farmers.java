@@ -34,12 +34,12 @@ public class Farmers {
             getFarmers = connection.prepareStatement("SELECT ? FROM farmers;");
 
             deleteFarmers = connection.prepareStatement("DELETE FROM farmers"
-                    + "WHERE order_number = ?;");
+                    + " WHERE order_number = ?;");
             insertFarmers = connection.prepareStatement("INSERT INTO farmers"
-                    + "VALUES (?, ?, ?, ?, ?);");
+                    + " VALUES (?, ?, ?, ?, ?);");
             updateFarmers = connection.prepareStatement("UPDATE farmers"
-                    + "SET first_name=?, last_name=?, farmer_id=?, status=?, timestamp=?"
-                    + "WHERE farmer_id=?;"); 
+                    + " SET first_name=?, last_name=?, farmer_id=?, status=?, timestamp=?"
+                    + " WHERE farmer_id=?;"); 
                     
         }catch(SQLException e){
             e.printStackTrace();
