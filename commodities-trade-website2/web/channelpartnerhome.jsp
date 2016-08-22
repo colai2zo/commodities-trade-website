@@ -14,9 +14,10 @@
         <script src="verifyPartner.js"></script>
     </head>
     
-    <body onload="verifyPartner()">
+    <body>
         <div id="header" align="center" >
-        <h1 text-align="center">Channel Partner Home Page</h1>
+        <% String username = session.getAttribute("username").toString(); %>
+        <h1 text-align="center"><%= username %> Channel Partner Home Page</h1>
         </div>
         
         <div id="central" align="center">

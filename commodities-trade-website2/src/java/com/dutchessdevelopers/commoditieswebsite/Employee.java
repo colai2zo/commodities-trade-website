@@ -5,6 +5,7 @@
  */
 package com.dutchessdevelopers.commoditieswebsite;
 import java.sql.*;
+import java.lang.Math;
 
 /**
  * 
@@ -14,7 +15,7 @@ public class Employee {
     //These Keys will allow me to gain access to the database.
     String URL = "jdbc:mysql://localhost:3306/commodities_trading";
     String USERNAME = "root";
-    String PASSWORD = "maps827";
+    String PASSWORD = "1234";
     
     /** Database Level Variables **/
     Connection connection = null;
@@ -31,7 +32,7 @@ public class Employee {
     public Employee(){
         try{
             connection = DriverManager.getConnection(URL,USERNAME,PASSWORD);
-            getEmployee = connection.prepareStatement("SELECT ? FROM employees;");
+            getEmployee = connection.prepareStatement("SELECT * FROM employees;");
 
             fireEmployee = connection.prepareStatement("DELETE FROM employees"
                     + " WHERE username = ?;");
@@ -50,9 +51,9 @@ public class Employee {
      * @Param the columns needed, a string formatted for SQL Select * From code
      * @return a ResultSet object containing the requested information.
      */
-    public ResultSet getEmployee(String columnsNeeded){
+    public ResultSet getEmployee(/*String columnsNeeded*/){
         try{
-            getEmployee.setString(1, columnsNeeded);
+            //getEmployee.setString(1, columnsNeeded);
             resultSet = getEmployee.executeQuery();
         }catch(SQLException e){
             e.printStackTrace();
@@ -123,4 +124,36 @@ public class Employee {
         }
         return result;
     }
+    
+    /**
+     * @return a password made of random integers and letters
+     */
+    public String createPassword(){
+        String password = "";
+        String character = "";
+        int numOrLet;
+        int letterChoice;
+        int numberChoice;
+        String[] alphabet = {"a","b","c","d","e","f","g","h","i","j","k","l","m","n","o","p","q","r","s","t","u","v","w","x","y","z"};
+        while(password.length() < 7)
+        {
+            numOrLet = (int)(Math.random()*2) + 1;
+            
+            //letter
+            if(numOrLet == 1)
+            {
+                letterChoice = (int)(Math.random()*26);
+                character = alphabet[letterChoice];
+            }
+            //number
+            else if (numOrLet == 2)
+            {
+                numberChoice = (int)(Math.random()*10);
+                character = Integer.toString(numberChoice);
+            }
+            password += character;
+        }
+        return password;
+    }
+
 }

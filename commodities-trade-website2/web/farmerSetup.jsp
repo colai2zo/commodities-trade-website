@@ -4,6 +4,10 @@
     Author     : Joey
 --%>
 
+<%@page import="java.sql.*"%>
+<%@page import="java.util.Calendar"%>
+<%@page import="com.dutchessdevelopers.commoditieswebsite.Farmers" %>
+<%Class.forName("com.mysql.jdbc.Driver");%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -17,6 +21,8 @@
         <div id="header">
             <h1>Farmer Setup</h1>
             <h2>Enter the following information to setup a farmer:</h2>
+        </div>
+        <%Farmers farmers = new Farmers();%>
         <div id="central" align="center">
             <form name="partnerInfoForm" method="post" action="farmerInfoPartner.jsp">
                 <table border="0" cellpadding="15">
@@ -35,6 +41,13 @@
                 </table>
                 <input id="button" type="submit" value="Submit Farmer for Approval" name="submitFarmerInfoButton" onclick="formSubmission()" />
             </form>
+            <%
+            if(request.getParameter("submitFarmerInfoButton") != null){
+                Timestamp currentTimestamp = new Timestamp(Calendar.getInstance().getTime().getTime());
+                farmers.insertFarmers(request.getParameter("firstNameInput"), request.getParameter("lastNameInput"), /*this has to be the farmer ID*/, "pending", currentTimestamp);
+                System.out.println("INSERTION");
+            }
+            %>
         </div>
     </body>
     <script> 

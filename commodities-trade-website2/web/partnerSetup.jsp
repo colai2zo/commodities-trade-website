@@ -63,7 +63,7 @@
                 
             if(request.getParameter("submitChannelInfoButton") != null){
                 Timestamp currentTimestamp = new Timestamp(Calendar.getInstance().getTime().getTime());
-                partners.insertChannelPartners(Integer.toString(num), request.getParameter("nameInput"), request.getParameter("userNameInput"), request.getParameter("passwordInput"), 0,0,0,0, currentTimestamp);
+                partners.insertChannelPartners(Integer.toString(num+1), request.getParameter("nameInput"), request.getParameter("userNameInput"), request.getParameter("passwordInput"), 0,0,0,0, currentTimestamp);
                 System.out.println("INSERTION");
             }
         %>

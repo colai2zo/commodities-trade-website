@@ -44,7 +44,7 @@
                 cpCount = cpData.getRow();
                 %>
                 <tr>
-                    <td><input type="text" name="<%= ("code" + cpCount)%>" value="<%= cpData.getString("id_code")%>" size="20px" /></td>
+                    <td><%= cpData.getString("id_code")%><input type="hidden" value="<%= cpData.getString("id_code")%>" size="20px" name="<%="code" + cpCount%>"></td>
                     <td><input type="text" name="<%= ("name" + cpCount)%>" value="<%= cpData.getString("name")%>" size="20px" /></td>
                     <td><input type="text" name="<%= ("username" + cpCount)%>" value="<%= cpData.getString("username")%>" size="20px" /></td>
                     <td><input type="text" name="<%= ("delta" + cpCount)%>" value="<%= cpData.getDouble("delta")%>" size="20px" /></td>

@@ -15,7 +15,8 @@
     </head>
     <body onload="verifyAdmin()">
         <div id="header">
-            <h1 style="text-align: center">Administrator Page</h1>
+            <% String username = session.getAttribute("username").toString(); %>
+            <h1 style="text-align: center"><%= username %>'s Administrator Page</h1>
         </div>
         <div id="central" align="center">
             <h2 style="text-align: center">Choose from the following
@@ -37,8 +38,8 @@
                 <input id="button" type="submit" value="Reporting" name="reportingButton" />
             </form>
             
-            <form name="setupEmployeeForm" action="setupEmployee.jsp" method="POST">
-                <input id="button" type="submit" value="Set Up Employee" name="setupEmployeeButton" />
+            <form name="employeeOptionsForm" action="employeeOptions.jsp" method="POST">
+                <input id="button" type="submit" value="Employee Options" name="employeeOptionsButton" />
             </form>
             
             <form name="pendingFarmersAdmin" action="pendingFarmersAdmin.jsp" method="POST">

@@ -11,6 +11,9 @@ and open the template in the editor.
 form{
     padding-bottom: 20px;
 }
+body{
+    background-color: #c4c4c4;
+}
 #button{
     width: 200px;
     padding-bottom: 20px;
