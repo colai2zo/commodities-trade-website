@@ -14,7 +14,7 @@ public class CurrentSpecs {
     //These Keys will allow me to gain access to the database.
     String URL = "jdbc:mysql://localhost:3306/commodities_trading";
     String USERNAME = "root";
-    String PASSWORD = "maps827";
+    String PASSWORD = "1234";
     
     /** Database Level Variables **/
     Connection connection = null;
@@ -31,7 +31,7 @@ public class CurrentSpecs {
     public CurrentSpecs(){
         try{
             connection = DriverManager.getConnection(URL,USERNAME,PASSWORD);
-            getSpecs = connection.prepareStatement("SELECT ? FROM past_spec_updates;");
+            getSpecs = connection.prepareStatement("SELECT * FROM past_spec_updates;");
 
             deleteSpecs = connection.prepareStatement("DELETE FROM past_spec_updates"
                     + " WHERE timestamp = ?;");
@@ -50,9 +50,8 @@ public class CurrentSpecs {
      * @Param the columns needed, a string formatted for SQL Select * From code
      * @return a ResultSet object containing the requested information.
      */
-    public ResultSet getSpecs(String columnsNeeded){
+    public ResultSet getSpecs(){
         try{
-            getSpecs.setString(1, columnsNeeded);
             resultSet = getSpecs.executeQuery();
         }catch(SQLException e){
             e.printStackTrace();
