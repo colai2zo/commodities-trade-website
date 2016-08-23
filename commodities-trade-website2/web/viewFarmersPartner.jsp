@@ -3,7 +3,10 @@
     Created on : Aug 10, 2016, 3:35:12 PM
     Author     : Joey
 --%>
-
+<%@page import="java.sql.*"%>
+<%@page import="java.util.Calendar"%>
+<%@page import="com.dutchessdevelopers.commoditieswebsite.*" %>
+<%Class.forName("com.mysql.jdbc.Driver");%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -18,6 +21,10 @@
             <h1 style="align:center">View Current Farmers</h1>
         </div>
         <div id="central" align="center">
+            <%
+                Farmers farmers = new Farmers();
+                ResultSet farmData = farmers.getFarmers();
+            %>
             <table border="1" cellpadding="15%" style="width:90%">
             <thead>
                 <tr>
@@ -27,11 +34,22 @@
                 </tr>
             </thead>
             <tbody>
-                <tr>
-                    <td> </td>
-                    <td> </td>
-                    <td> </td>
-                </tr>
+                
+                <%
+                    while(farmData.next()){
+                        int farmCount = farmData.getRow();
+                        if(farmData.getString("partner_id").equals(new ChannelPartner().getPartnerIDByUsername(session.getAttribute("username").toString()))
+                           &&  farmData.getString("status").equals("approve")){
+                %>
+                            <tr>
+                                <td name=<%=("partnerID" + farmCount)%>><%=farmData.getString("farmer_id")%></td>
+                                <td name=<%=("firstName" + farmCount)%>><%=farmData.getString("first_name")%></td>
+                                <td name=<%=("lastName" + farmCount)%>><%=farmData.getString("last_name")%></td>
+                            </tr>
+                <%
+                        }
+                    }
+                %>
             </tbody>
         </table>
         </div>

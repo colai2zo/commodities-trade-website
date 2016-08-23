@@ -59,10 +59,6 @@
                             <td><input type="checkbox" name="bookManagementBox" value="ON" />
                         </tr>
                         <tr>
-                            <td>Reporting</td>
-                            <td><input type="checkbox" name="reportingCheckBox" value="ON" />
-                        </tr>
-                        <tr>
                             <td>Pricing</td>
                             <td><input type="checkbox" name="pricingCheckBox" value="ON" />
                         </tr>

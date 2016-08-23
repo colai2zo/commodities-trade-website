@@ -6,6 +6,9 @@
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@page import="java.sql.*"%>
+<%@page import="com.dutchessdevelopers.commoditieswebsite.ChannelPartner" %>
+<%Class.forName("com.mysql.jdbc.Driver");%>
 <!DOCTYPE html>
 <html>
     <head>
@@ -17,14 +20,20 @@
     <body onload="verifyAdmin()">
         <h1>Hedge Trade</h1>
         <div id='central' align='center'>
+            <%
+                ChannelPartner channelPartner = new ChannelPartner();
+                ResultSet cpData = channelPartner.getChannelPartners();
+                int cpCount = 0;
+                %>
             <table border="0" cellpadding='15' >
                 <tbody>
                     <tr>
                         <td>Channel Partner : </td>
                         <td><select name="selectPartner">
                                 <option>Select Channel Partner</option>
-                                <option>A</option>
-                                <option>B</option>
+                                <% while(cpData.next()){ %>
+                                    <option><%= cpData.getString("name") %></option>    
+                                <% } %>
                             </select>
                         </td>
                     </tr>

@@ -6,7 +6,7 @@
 
 <%@page import="java.sql.*"%>
 <%@page import="java.util.Calendar"%>
-<%@page import="com.dutchessdevelopers.commoditieswebsite.Farmers" %>
+<%@page import="com.dutchessdevelopers.commoditieswebsite.*" %>
 <%Class.forName("com.mysql.jdbc.Driver");%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -24,7 +24,7 @@
         </div>
         <%Farmers farmers = new Farmers();%>
         <div id="central" align="center">
-            <form name="partnerInfoForm" method="post" action="farmerInfoPartner.jsp">
+            <form name="partnerInfoForm" method="post" action="farmerSetup.jsp">
                 <table border="0" cellpadding="15">
                     <tbody>
                         <tr>
@@ -44,7 +44,9 @@
             <%
             if(request.getParameter("submitFarmerInfoButton") != null){
                 Timestamp currentTimestamp = new Timestamp(Calendar.getInstance().getTime().getTime());
-                farmers.insertFarmers(request.getParameter("firstNameInput"), request.getParameter("lastNameInput"), /*this has to be the farmer ID*/, "pending", currentTimestamp);
+                String username = session.getAttribute("username").toString();
+                String id = new ChannelPartner().getPartnerIDByUsername(username);
+                farmers.insertFarmers(request.getParameter("firstNameInput"), request.getParameter("lastNameInput"), new Farmers().generateFarmerID(id,"pending"), "pending", currentTimestamp, id);
                 System.out.println("INSERTION");
             }
             %>

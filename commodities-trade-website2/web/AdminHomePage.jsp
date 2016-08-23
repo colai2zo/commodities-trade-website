@@ -34,10 +34,6 @@
                 <input id="button" type="submit" value="Book Management" name="bookManagementButton" />
             </form>
             
-            <form name="reportingForm" action="reporting.jsp" method="POST">
-                <input id="button" type="submit" value="Reporting" name="reportingButton" />
-            </form>
-            
             <form name="employeeOptionsForm" action="employeeOptions.jsp" method="POST">
                 <input id="button" type="submit" value="Employee Options" name="employeeOptionsButton" />
             </form>

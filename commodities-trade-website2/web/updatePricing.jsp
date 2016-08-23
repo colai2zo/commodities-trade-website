@@ -3,7 +3,10 @@
     Created on : Aug 7, 2016, 2:37:58 PM
     Author     : Joey
 --%>
-
+<%@page import="java.sql.*"%>
+<%@page import="java.util.Calendar"%>
+<%@page import="com.dutchessdevelopers.commoditieswebsite.*" %>
+<%Class.forName("com.mysql.jdbc.Driver");%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -59,39 +62,7 @@
                         <td><input type="text" name="markUpInput" value="Input" /></td>
                         <td></td>
                     </tr>
-                    <tr>
-                        <td></td>
-                        <td></td>
-                        <td></td>       
-                        <td></td>
-                        <td><input type="text" name="volatilityInput" value="Data Source" /></td>
-                        <td><input type="text" name="vSpreadInput" value="Input" /></td>
-                        <td></td>
-                        <td><input type="text" name="markUpInput" value="Input" /></td>
-                        <td></td>
-                    </tr>
-                    <tr>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td><input type="text" name="volatilityInput" value="Data Source" /></td>
-                        <td><input type="text" name="vSpreadInput" value="Input" /></td>
-                        <td></td>
-                        <td><input type="text" name="markUpInput" value="Input" /></td>
-                        <td></td>
-                    </tr>
-                    <tr>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td><input type="text" name="volatilityInput" value="Data Source" /></td>
-                        <td><input type="text" name="vSpreadInput" value="Input" /></td>
-                        <td></td>
-                        <td><input type="text" name="markUpInput" value="Input" /></td>
-                        <td></td>
-                    </tr>
+                    
                 </tbody>
             </table> <br><br>
 
@@ -122,39 +93,7 @@
                         <td><input type="text" name="markUpInput" value="Input" /></td>
                         <td></td>
                     </tr>
-                    <tr>
-                        <td></td>
-                        <td></td>
-                        <td></td> 
-                        <td></td>
-                        <td><input type="text" name="volatilityInput" value="Data Source" /></td>
-                        <td><input type="text" name="vSpreadInput" value="Input" /></td>
-                        <td></td>
-                        <td><input type="text" name="markUpInput" value="Input" /></td>
-                        <td></td>
-                    </tr>
-                    <tr>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td><input type="text" name="volatilityInput" value="Data Source" /></td>
-                        <td><input type="text" name="vSpreadInput" value="Input" /></td>
-                        <td></td>
-                        <td><input type="text" name="markUpInput" value="Input" /></td>
-                        <td></td>
-                    </tr>
-                    <tr>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td><input type="text" name="volatilityInput" value="Data Source" /></td>
-                        <td><input type="text" name="vSpreadInput" value="Input" /></td>
-                        <td></td>
-                        <td><input type="text" name="markUpInput" value="Input" /></td>
-                        <td></td>
-                    </tr>
+                    
                 </tbody>
             </table> <br><br>
 
@@ -185,39 +124,7 @@
                         <td><input type="text" name="markUpInput" value="Input" /></td>
                         <td></td>
                     </tr>
-                    <tr>
-                        <td></td>
-                        <td></td>
-                        <td></td>    
-                        <td></td>
-                        <td><input type="text" name="volatilityInput" value="Data Source" /></td>
-                        <td><input type="text" name="vSpreadInput" value="Input" /></td>
-                        <td></td>
-                        <td><input type="text" name="markUpInput" value="Input" /></td>
-                        <td></td>
-                    </tr>
-                    <tr>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td><input type="text" name="volatilityInput" value="Data Source" /></td>
-                        <td><input type="text" name="vSpreadInput" value="Input" /></td>
-                        <td></td>
-                        <td><input type="text" name="markUpInput" value="Input" /></td>
-                        <td></td>
-                    </tr>
-                    <tr>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td><input type="text" name="volatilityInput" value="Data Source" /></td>
-                        <td><input type="text" name="vSpreadInput" value="Input" /></td>
-                        <td></td>
-                        <td><input type="text" name="markUpInput" value="Input" /></td>
-                        <td></td>
-                    </tr>
+                    
                 </tbody>
             </table> <br><br>
         </div>

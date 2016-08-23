@@ -3,7 +3,11 @@
     Created on : Aug 11, 2016, 7:36:09 PM
     Author     : Lucas
 --%>
-
+<%@page import="com.dutchessdevelopers.commoditieswebsite.ChannelPartner"%>
+<%@page import="java.sql.*"%>
+<%@page import="com.dutchessdevelopers.commoditieswebsite.Farmers" %>
+<%@page import="java.util.Calendar"%>
+<%Class.forName("com.mysql.jdbc.Driver");%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <head>
@@ -17,32 +21,83 @@
             <h1>View Pending Farmers</h1>
         </div>
         <div id="central" align="center">
+             <%
+                Farmers farmers = new Farmers();
+                ResultSet farmData = farmers.getFarmers();
+                %>
+            <form name="update" action="pendingFarmersAdmin.jsp" method="POST">
             <table border="1" cellpadding="10" style="width:50%">
             <thead>
                 <tr>
-                    <th>Channel Partner</th>
+                    <th>Channel Partner ID</th>
                     <th>First Name</th>
                     <th>Last Name</th>
                     <th>Status</th>
+                    <th>Submit</th>
                 </tr>
             </thead>
             <tbody>
-                <tr>
-                    <td> </td>
-                    <td> </td>
-                    <td>
-                        <select name="Approve/Decline" id="approveChooser">
-                            <option value="Pending">Pending</option>
-                            <option value="Approve">Approve</option>
-                            <option value="Decline">Decline</option>
-                        </select>
-                            <form name="submitCoice" action="pendingFarmersAdmin.jsp" method="POST">
-                                <input type="submit" value="Submit" name="submitChoice" />
-                            </form>
-                    </td>
-                </tr>
+                <%
+                    while(farmData.next()){
+                        int farmCount = farmData.getRow();
+                        if(farmData.getString("status").equals("pending")){
+                            %>
+                            <tr>
+                                <td name=<%=("partnerID" + farmCount)%>><%=farmData.getString("partner_id")%></td>
+                                <td name=<%=("firstName" + farmCount)%>><%=farmData.getString("first_name")%></td>
+                                <td name=<%=("lastName" + farmCount)%>><%=farmData.getString("last_name")%></td>
+                                <td>
+                                    <select name=<%=("selector" + farmCount)%> id="approveChooser">
+                                        <option value="pending">Pending</option>
+                                        <option value="approve">Approve</option>
+                                        <option value="decline">Decline</option>
+                                    </select>
+                                </td>
+                                <td>
+                                    <input type="submit" value="Submit" name=<%=("submitButton" + farmCount)%> />
+                                </td>
+                            </tr>   
+                <%      }
+                    } %>
+                
             </tbody>
         </table>
+        </form>
+        <%
+            int count=0;
+            farmData = farmers.getFarmers();
+            //String username = session.getAttribute("username").toString();
+            //ChannelPartner partner = new ChannelPartner();
+            //String pID = partner.getPartnerIDByUsername(username);
+            //String id = 
+            while (farmData.next()){
+                count++;
+                if(request.getParameter("submitButton" + count) != null){
+                    if((request.getParameter("selector" + count).equals("approve"))){
+                       farmers.updateFarmers(
+                            farmData.getString("first_name"),
+                            farmData.getString("last_name"),
+                            new Farmers().generateFarmerID(farmData.getString("partner_id"),"approve"),
+                            request.getParameter("selector" + count),
+                            new Timestamp(Calendar.getInstance().getTime().getTime()),
+                            farmData.getString("partner_id"),
+                            farmData.getTimestamp("timestamp")); 
+                    }else if((request.getParameter("selector" + count).equals("decline"))){
+                        farmers.updateFarmers(
+                            farmData.getString("first_name"),
+                            farmData.getString("last_name"),
+                            new Farmers().generateFarmerID(farmData.getString("partner_id"),"decline"),
+                            request.getParameter("selector" + count),
+                            new Timestamp(Calendar.getInstance().getTime().getTime()),
+                            farmData.getString("partner_id"),
+                            farmData.getTimestamp("timestamp")); 
+                    }
+                    
+                    response.setHeader("Refresh", "0; URL=pendingFarmersAdmin.jsp");
+                    
+                }
+            }
+        %>            
         </div>
     </body>
 </html>

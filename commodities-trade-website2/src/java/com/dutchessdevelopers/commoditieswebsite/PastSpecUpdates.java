@@ -14,7 +14,7 @@ public class PastSpecUpdates {
     //These Keys will allow me to gain access to the database.
     String URL = "jdbc:mysql://localhost:3306/commodities_trading";
     String USERNAME = "root";
-    String PASSWORD = "maps827";
+    String PASSWORD = "1234";
     
     /** Database Level Variables **/
     Connection connection = null;

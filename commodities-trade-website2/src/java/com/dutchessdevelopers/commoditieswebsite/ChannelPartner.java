@@ -152,5 +152,25 @@ public class ChannelPartner {
         }
         return password;
     }
+    
+    /**
+     * 
+     * @param username the username of the partner for whom we are finding the id
+     * @return the ID of that partner
+     */
+    public String getPartnerIDByUsername(String username){
+        ResultSet currentPartners = getChannelPartners();
+        String id = "";
+        try{
+            while(currentPartners.next()){
+                if(currentPartners.getString("username").equals(username)){
+                    id = currentPartners.getString("id_code");        
+                }
+            }
+        }catch(SQLException e){
+            e.printStackTrace();
+        }
+        return id;
+    }
 
 }

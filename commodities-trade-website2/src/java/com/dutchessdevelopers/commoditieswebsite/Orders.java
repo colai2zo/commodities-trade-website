@@ -10,11 +10,11 @@ import java.sql.*;
  *
  * @author Development
  */
-public class DeclinedOrders {
+public class Orders {
     //These Keys will allow me to gain access to the database.
     String URL = "jdbc:mysql://localhost:3306/commodities_trading";
     String USERNAME = "root";
-    String PASSWORD = "maps827";
+    String PASSWORD = "1234";
     
     /** Database Level Variables **/
     Connection connection = null;
@@ -27,15 +27,15 @@ public class DeclinedOrders {
      * DEFAULT CONSTRUCTOR
      * Initializes all database level variables.
      */
-    public DeclinedOrders(){
+    public Orders(){
         try{
             connection = DriverManager.getConnection(URL,USERNAME,PASSWORD);
-            getOrders = connection.prepareStatement("SELECT ? FROM declined_orders;");
+            getOrders = connection.prepareStatement("SELECT * FROM orders ORDER BY timestamp ASC;");
 
-            deleteOrders = connection.prepareStatement("DELETE FROM declined_orders"
+            deleteOrders = connection.prepareStatement("DELETE FROM orders"
                     + " WHERE order_number = ?;");
-            insertOrders = connection.prepareStatement("INSERT INTO declined_orders"
-                    + " VALUES (?, ?, ?, ?, ?, ?, ?, ?);");
+            insertOrders = connection.prepareStatement("INSERT INTO orders"
+                    + " VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?);");
                     
         }catch(SQLException e){
             e.printStackTrace();
@@ -46,9 +46,8 @@ public class DeclinedOrders {
      * @Param the columns needed, a string formatted for SQL Select * From code
      * @return a ResultSet object containing the requested information.
      */
-    public ResultSet getDeclinedOrders(String columnsNeeded){
+    public ResultSet getOrders(){
         try{
-            getOrders.setString(1, columnsNeeded);
             resultSet = getOrders.executeQuery();
         }catch(SQLException e){
             e.printStackTrace();
@@ -60,11 +59,11 @@ public class DeclinedOrders {
      * @param the data values for each column in the table.
      * @return 1 if success, 0 if fail.
      */
-    public int insertDeclinedOrders(int farmer_id, int order_number, String description, String futures_contract, String quantity, int strike, double cost_per_ton, Timestamp timestamp){
+    public int insertOrders(String farmer_id, int order_number, String description, String futures_contract, String quantity, int strike, double cost_per_ton, Timestamp timestamp, String status){
         int result=0;
         try{
             //Replace question mark with SQL string that will place the variables.
-            insertOrders.setInt(1, farmer_id);
+            insertOrders.setString(1, farmer_id);
             insertOrders.setInt(2, order_number);
             insertOrders.setString(3, description);
             insertOrders.setString(4, futures_contract);
@@ -72,6 +71,7 @@ public class DeclinedOrders {
             insertOrders.setInt(6, strike);
             insertOrders.setDouble(7, cost_per_ton);
             insertOrders.setTimestamp(8, timestamp);
+            insertOrders.setString(9, status);
             result = insertOrders.executeUpdate();
         }catch(SQLException e){
             e.printStackTrace();
@@ -83,7 +83,7 @@ public class DeclinedOrders {
      * @param the id number of the channel partner to be deleted.
      * @return 1 if success, 0 if fail.
      */
-    public int deleteDeclinedOrders(int order_Number){
+    public int deleteOrders(int order_Number){
         int result = 0;
         try{
            deleteOrders.setInt(1, order_Number);
@@ -92,5 +92,17 @@ public class DeclinedOrders {
             e.printStackTrace();
         }
         return result;
+    }
+    
+    public int generateOrderID(){
+        int n=-999;
+        try{
+           ResultSet r = getOrders();
+            r.last();
+            n = r.getRow(); 
+        } catch(SQLException e){
+            e.printStackTrace();
+        }     
+        return n;
     }
 }

@@ -35,6 +35,12 @@
                             </td>
                         </tr>
                         <tr>
+                            <td>ID Code: </td>
+                            <td>
+                                <input id="IDCode" type="text" name="IDInput" value="" size="50" style="padding:10px 0px 10px 0px"/>
+                            </td>
+                        </tr>
+                        <tr>
                             <td>Username: </td>
                             <td><input id="user" type="text" name="userNameInput" value="" size="50" style="padding:10px 0px 10px 0px"/></td>
                         </tr>
@@ -50,20 +56,10 @@
             <form name="returnForm" action="AdminHomePage.jsp" method="post">
                 <input id="button" type="submit" value="Back to Admin Home Page" name="returnButton" />
             </form>
-            <%
-                ResultSet partnerData;
-                int num;
-                try{
-                partnerData = partners.getChannelPartners();
-                partnerData.last();
-                num = partnerData.getRow();
-                } catch (NullPointerException e){
-                    num = 0;
-                }
-                
+            <%            
             if(request.getParameter("submitChannelInfoButton") != null){
                 Timestamp currentTimestamp = new Timestamp(Calendar.getInstance().getTime().getTime());
-                partners.insertChannelPartners(Integer.toString(num+1), request.getParameter("nameInput"), request.getParameter("userNameInput"), request.getParameter("passwordInput"), 0,0,0,0, currentTimestamp);
+                partners.insertChannelPartners(request.getParameter("IDInput"), request.getParameter("nameInput"), request.getParameter("userNameInput"), request.getParameter("passwordInput"), 0,0,0,0, currentTimestamp);
                 System.out.println("INSERTION");
             }
         %>
