@@ -25,7 +25,7 @@
             <h2>Please select from the following:</h2>
         
         <form name="CheckSpecsForm" action="channelpartnerspecs.jsp" method="POST">
-            <input id="button" type="submit" value="View Today's Specs" name="checkSpecsButton" />
+            <input id="button" type="submit" value="View Today's Pricing" name="checkSpecsButton" />
         </form>
         
         <form name="PendingOrdersForm" action="currentorderspartner.jsp" method="POST">

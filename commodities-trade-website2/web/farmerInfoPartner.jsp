@@ -35,7 +35,22 @@
             
         </div>
     </body>
-    <script>        
-        
-    </script>
+    <div class="fixed">
+            <table border="0">
+                <tbody>
+                    <tr>
+                        <td>
+                            <form name="homeForm" action="channelpartnerhome.jsp" method="POST">
+                                <input id="backAndHome" type="submit" value="Return to Home Screen" name="homeButton" />
+                            </form>
+                        </td>
+                        <td>
+                            <form name="backForm" action="channelpartnerhome.jsp" method="POST">
+                                <input id="backAndHome" type="submit" value="Go Back" name="backButton" />
+                            </form>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
 </html>

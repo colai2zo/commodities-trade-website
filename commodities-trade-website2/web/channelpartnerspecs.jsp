@@ -42,14 +42,14 @@
         <form name="SubmitForm" action="channelpartnerspecs.jsp" method="POST" style="padding-top: 20px;">
         <div id="header" align="center" style="padding-bottom: 20px">
         <h1>Trading Partner Offers</h1>
-        <h3>Today's specs</h3>
+        <h3>Today's Pricing</h3>
         <select name="ChooseFarmer" align="left">
             <option>Select A Farmer</option>
             <%
                 while(farmData.next()){
                     if(farmData.getString("partner_id").equals(pID) && farmData.getString("status").equals("approve")){
             %>
-                        <option><%= farmData.getString("farmer_id")%></option>
+                        <option><%= farmData.getString("first_name") + " " + farmData.getString("last_name") + " (" + farmData.getString("farmer_id") + ")"%></option>
             <%        
                     }
                 }
@@ -57,7 +57,7 @@
             
         </select>
         <select id="productChooser" name="ChooseCommodity" align="right" onchange="setText()">
-            <option value="default">Please Select a Commodity</option>
+            <option value="default">Select a Commodity</option>
             <option value="Corn">Corn</option>
             <option value="Wheat">Wheat</option>
             <option value="Soy Bean Meal">Soy Bean Meal</option>
@@ -68,11 +68,13 @@
             <table id="theTable1" border="1" cellpadding="15%" style="width:90%" >
             <thead>
                 <tr>
-                    <th colspan="6">Current Market</th>
+                    <th colspan="7">Current Market</th>
                 </tr>
                 <tr>
                     <th>Month</th>
                     <th>Futures</th>
+                    <th>Market</th>
+                    <th>Indicative Strike</th>
                     <th>Expiration</th>
                     <th>Price</th>
                     <th>Quantity</th>
@@ -105,11 +107,13 @@
             <table id="theTable2" border="1" cellpadding="15%" style="width:90%">
             <thead>
                 <tr>
-                    <th colspan="6">+ 2</th>
+                    <th colspan="7">Strike Shift: + 2</th>
                 </tr>
                 <tr>
                     <th>Month</th>
                     <th>Futures</th>
+                    <th>Market</th>
+                    <th>Indicative Strike</th>
                     <th>Expiration</th>
                     <th>Price</th>
                     <th>Quantity</th>
@@ -142,12 +146,13 @@
             <table id="theTable3" border="1" cellpadding="15%" style="width:90%">
             <thead>
                 <tr>
-                    <th colspan="6">- 2</th>
+                    <th colspan="7">Strike Shift: - 2</th>
                 </tr>
                 <tr>
                     <th>Month</th>
                     <th>Futures</th>
                     <th>Market</th>
+                    <th>Indicative Strike</th>
                     <th>Expiration</th>
                     <th>Price</th>
                     <th>Quantity</th>
@@ -180,6 +185,24 @@
             <input id="button" type="submit" value="Submit Offer" name="SubmitButton"/>
             </div>
         </form>
+            <div class="fixed">
+            <table border="0">
+                <tbody>
+                    <tr>
+                        <td>
+                            <form name="homeForm" action="channelpartnerhome.jsp" method="POST">
+                                <input id="backAndHome" type="submit" value="Return to Home Screen" name="homeButton" />
+                            </form>
+                        </td>
+                        <td>
+                            <form name="backForm" action="channelpartnerhome.jsp" method="POST">
+                                <input id="backAndHome" type="submit" value="Go Back" name="backButton" />
+                            </form>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
         
         <%  int countM = 0, countP = 0, countN = 0; //count for at market, plus, and minus
             int orderNum = orders.generateOrderID();

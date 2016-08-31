@@ -24,12 +24,30 @@
             </form>
 
             <form name="editAndViewCPForm" action="viewCP.jsp" method="POST">
-                <input id="button" type="submit" value="Edit and View a Channel Partner" name="editAndViewButton" />
+                <input id="button" type="submit" value="Edit/View Channel Partners" name="editAndViewButton" />
             </form>
             
             <form name="brokerOptionsForm" action="brokeroptions.jsp" method="POST">
                 <input id="button" type="submit" value="Broker Options" name="brokerOptionsButton" />
             </form>
 	</div>
+        <div class="fixed">
+            <table border="0">
+                <tbody>
+                    <tr>
+                        <td>
+                            <form name="homeForm" action="AdminHomePage.jsp" method="POST">
+                                <input id="backAndHome" type="submit" value="Return to Home Screen" name="homeButton" />
+                            </form>
+                        </td>
+                        <td>
+                            <form name="backForm" action="AdminHomePage.jsp" method="POST">
+                                <input id="backAndHome" type="submit" value="Go Back" name="backButton" />
+                            </form>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
     </body>
 </html>

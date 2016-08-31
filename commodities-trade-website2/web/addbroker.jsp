@@ -5,6 +5,7 @@
 --%>
 <%@page import="java.sql.*"%>
 <%@page import="com.dutchessdevelopers.commoditieswebsite.Brokers" %>
+<%@page import="com.dutchessdevelopers.commoditieswebsite.ChannelPartner" %>
 <%Class.forName("com.mysql.jdbc.Driver");%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -16,13 +17,20 @@
          <script src="verifyAdmin.js"></script>
     </head>
     <body onload="">
+        <%
+            ChannelPartner channelPartner = new ChannelPartner();
+            ResultSet cpData = channelPartner.getChannelPartners();
+        %>
 	<div id="header">
 	    <h1>Broker Setup</h1>
             <h2>Enter the following information to setup a broker:</h2>
 	</div>
 	<div id="central" align="center">
-        <select name="partnerChooser" align="left">
-            <option>Channel Partner 1</option>
+        <select id="partnerChooser" name="partnerChooser" align="left">
+            <option>Select A Channel Partner</option>
+            <% while(cpData.next()){ %>
+                <option value="<%= cpData.getString("name") %>"><%= cpData.getString("name") %></option>    
+            <% } %>
         </select>
         <%Brokers brokers = new Brokers();%>
 	    <form name="brokerInfoForm" action="addbroker.jsp" method="post">
@@ -41,16 +49,34 @@
                 <input id="button" type="submit" value="Submit" name="submitButton" onclick="formSubmission()"/>
             </form>
             <form name="returnForm" action="brokeroptions.jsp" method="post">
-            <input id="button" type="submit" value="Back to Broker Options" name="returnButton"/>
+                <input id="button" type="submit" value="Back to Broker Options" name="returnButton"/>
             </form>
             
             <%
             if(request.getParameter("submitButton") != null){
-                brokers.insertBroker(request.getParameter("firstInput"), request.getParameter("lastInput"));
-                System.out.println("INSERTION");
+                //This does not pass in the channel partner like it is supposed to
+                brokers.insertBroker(request.getParameter("firstInput"), request.getParameter("lastInput"), request.getParameter("partnerChooser"));
             }
         %>
-	</div>            
+	</div>
+        <div class="fixed">
+            <table border="0">
+                <tbody>
+                    <tr>
+                        <td>
+                            <form name="homeForm" action="AdminHomePage.jsp" method="POST">
+                                <input id="backAndHome" type="submit" value="Return to Home Screen" name="homeButton" />
+                            </form>
+                        </td>
+                        <td>
+                            <form name="backForm" action="brokeroptions.jsp" method="POST">
+                                <input id="backAndHome" type="submit" value="Go Back" name="backButton" />
+                            </form>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
     </body>
     <script> 
         function formSubmission(){

@@ -62,6 +62,10 @@
                             <td>Pricing</td>
                             <td><input type="checkbox" name="pricingCheckBox" value="ON" />
                         </tr>
+                        <tr>
+                            <td>Reporting</td>
+                            <td><input type="checkbox" name="reportingCheckBox" value="ON" />
+                        </tr>
                     </tbody>
                 </table>
                 <input id="button" type="submit" value="Create Employee" name="submitEmployeeInfoButton" onclick="formSubmission()" />
@@ -72,14 +76,14 @@
             
             <%
             if(request.getParameter("submitEmployeeInfoButton") != null){
-                Boolean allChecked = false;
+                Boolean adminChecked = false;
                 Boolean bookManagementChecked = false;
                 Boolean reportingChecked = false;
                 Boolean pricingChecked = false;
                 Timestamp currentTimestamp = new Timestamp(Calendar.getInstance().getTime().getTime());
                 
                 if(request.getParameter("adminCheckBox") != null)
-                    allChecked = true;
+                    adminChecked = true;
                 if(request.getParameter("bookManagementBox") != null)
                     bookManagementChecked = true;
                 if(request.getParameter("reportingCheckBox") != null)
@@ -87,10 +91,28 @@
                 if(request.getParameter("pricingCheckBox") != null)
                     pricingChecked = true;
                 
-                employees.insertEmployee(request.getParameter("firstNameInput"), request.getParameter("lastNameInput"), request.getParameter("userNameInput"), request.getParameter("passwordInput"), allChecked, bookManagementChecked, reportingChecked, pricingChecked, currentTimestamp);
+                employees.insertEmployee(request.getParameter("firstNameInput"), request.getParameter("lastNameInput"), request.getParameter("userNameInput"), request.getParameter("passwordInput"), adminChecked, bookManagementChecked, reportingChecked, pricingChecked, currentTimestamp);
                 System.out.println("INSERTION");
             }
             %>
+        </div>
+        <div class="fixed">
+            <table border="0">
+                <tbody>
+                    <tr>
+                        <td>
+                            <form name="homeForm" action="AdminHomePage.jsp" method="POST">
+                                <input id="backAndHome" type="submit" value="Return to Home Screen" name="homeButton" />
+                            </form>
+                        </td>
+                        <td>
+                            <form name="backForm" action="employeeOptions.jsp" method="POST">
+                                <input id="backAndHome" type="submit" value="Go Back" name="backButton" />
+                            </form>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
         </div>
         <script>        
         function checkAll(ele) {
@@ -115,6 +137,7 @@
             }
         }   
     </script>
+    
     </body>
     
 </html>

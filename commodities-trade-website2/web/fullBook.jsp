@@ -4,6 +4,9 @@
     Author     : Lucas
 --%>
 
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.6.4/jquery.min.js" type="text/javascript"></script>
+<script src="../jquery.bgiframe.min.js" type="text/javascript"></script>
+<script src="../jquery.multiSelect.js" type="text/javascript"></script>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -22,29 +25,63 @@
     <body onload="verifyAdmin()">
         <div id="header" align="center">
             <h1>Complete Book</h1><br>
-            
-            <select id="colSelector" name="selectCol" multiple="multiple" onchange="selectColumns()">
-                <option id="CP">Channel Partner</option>
-                <option id="tradedate">Trade Date</option>
-                <option id="ordernum">Order Number</option>
-                <option id="commodity">Commodity</option>
-                <option id="deliverycontract">Delivery Contract</option>
-                <option id="instrument">Instrument</option>
-                <option id="type">Type</option>
-                <option id="vol">Volume</option>
-                <option id="strike">Strike</option>
-                <option id="expiration">Expiration</option>
-                <option id="originalmarket">Original Market</option>
-                <option id="underlying">Underlying</option>
-                <option id="currentvol">Current Volatility</option>
-                <option id="delta">Delta</option>
-                <option id="gamma">Gamma</option>
-                <option id="theta">Theta</option>
-                <option id="vega">Vega</option>
-                <option id="hedge/trade">Hedge/Trade</option>
-                <option id="broker">Broker</option>
-                <option id="farmnum">Farmer Number</option>
-            </select><br><br>
+            <table border="0" style="padding-left: 10px; padding-right: 10px">
+                <tbody>
+                    <tr>
+                        <td>Select Columns: </td>
+                        <td>
+                            <select id="colSelector" name="colSelector" multiple="multiple" onchange="selectColumns()">
+                                <option value ="CP">Channel Partner</option>
+                                <option value="tradedate">Trade Date</option>
+                                <option value="ordernum">Order Number</option>
+                                <option value="commodity">Commodity</option>
+                                <option value="deliverycontract">Delivery Contract</option>
+                                <option value="instrument">Instrument</option>
+                                <option value="type">Type</option>
+                                <option value="vol">Volume</option>
+                                <option value="strike">Strike</option>
+                                <option value="expiration">Expiration</option>
+                                <option value="originalmarket">Original Market</option>
+                                <option value="underlying">Underlying</option>
+                                <option value="currentvol">Current Volatility</option>
+                                <option value="delta">Delta</option>
+                                <option value="gamma">Gamma</option>
+                                <option value="theta">Theta</option>
+                                <option value="vega">Vega</option>
+                                <option value="hedge/trade">Hedge/Trade</option>
+                                <option value="broker">Broker</option>
+                                <option value="farmnum">Farmer Number</option>
+                            </select>
+                        </td>
+                        <td>Sort By: </td>
+                        <td>
+                            <select name="sortOptions">
+                                <option>Date</option>
+                                <option>Channel Partner</option>
+                                <option>Type</option>
+                                <option>Order #</option>
+                                <option>Commodity</option>
+                                <option>Delivery Contract</option>
+                                <option>Instrument</option>
+                                <option>Expiry Date</option>
+                                <option>Broker</option>
+                                <option>Farmer #</option>
+                                <option>Status</option>
+                            </select>
+                        </td>
+                        <form name="searchForm" action="fullbook.jsp">
+                            <td>
+                                <input type="text" name="searchInput" value="" size="20" />
+                            </td>
+                            <td>
+                                <input type="submit" value="Search" name="searchButton" method="POST" />
+                            </td>
+                        </form>
+                    </tr>
+                </tbody>
+            </table>
+
+            <br><br>
         </div>
         <div id="central" align="center">
             <table border="1" >
@@ -57,23 +94,34 @@
                             <th>Commodity</th>
                             <th>Delivery Contract</th>
                             <th>Instrument</th>
-                            <th>Type</th>
+                            <th>Frequency</th>
                             <th>Volume</th>
                             <th>Strike</th>
                             <th>Expiry Date</th>
                             <th>Original Market</th>
                             <th>Current Underlying</th>
                             <th>Current Volatility</th>
+                            <th>Market Price Per Unit</th> <!--new -->
                             <th>Delta</th>
-                            <th>Vega</th>
-                            <th>Gamma</th>
+                            <th>Gamma</th> <!--switched -->
+                            <th>Vega</th> <!--switched -->
                             <th>Theta</th>
+                            <th>MTM</th> <!--new This means "Mark to Market"-->
+                            <th>Profit/Loss Total</th> <!--new -->
+                            <th>Profit/Loss Per Unit</th> <!--new -->
+                            <th>Position (Lots)</th> <!--new -->
                             <th>Broker</th>
                             <th>Farmer Number</th>
+                            <th>Status</th> <!--Active, Expired or Unwound-->
                         </tr>
                     </thead>
                     <tbody>
                         <tr>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
                             <td></td>
                             <td></td>
                             <td></td>
@@ -99,11 +147,23 @@
             </table>
 
         </div>
+        <div class="fixed">
+            <table border="0">
+                <tbody>
+                    <tr>
+                        <td>
+                            <form name="homeForm" action="AdminHomePage.jsp" method="POST">
+                                <input id="backAndHome" type="submit" value="Return to Home Screen" name="homeButton" />
+                            </form>
+                        </td>
+                        <td>
+                            <form name="backForm" action="manageBook.jsp" method="POST">
+                                <input id="backAndHome" type="submit" value="Go Back" name="backButton" />
+                            </form>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
     </body>
-    <script>
-        function selectColumns()
-        {
-            
-        }
-    </script>
 </html>

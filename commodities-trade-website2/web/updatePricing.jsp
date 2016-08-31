@@ -4,6 +4,8 @@
     Author     : Joey
 --%>
 
+<%@page import="java.text.SimpleDateFormat"%>
+<%@page import="java.text.DateFormat"%>
 <%@page import="java.util.Calendar"%>
 <%@page import="java.util.Date"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
@@ -17,6 +19,10 @@
             background-color: transparent; text-align: center; border: 0px
         }
     </style>
+    <%
+        DateFormat dateFormat = new SimpleDateFormat("EEEE MMMM d, yyyy");
+        Calendar cal = Calendar.getInstance();
+    %>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Commodities Trading | Update Pricing</title>
@@ -26,7 +32,7 @@
     <body>
         <form name="SubmitForm" action="previewChanges.jsp" method="POST">
         <div id="header" align="center" style="padding-bottom: 20px">
-        <h1>Update Pricing</h1>
+        <h1>Update Pricing: <%= dateFormat.format(cal.getTime())%></h1>
         
             <select id="productChooser" name="Choose Commodity" onchange="getText()">
                 <option value="select">Select Product</option>
@@ -41,18 +47,20 @@
             <table id="theTable1" border="1" cellpadding="15" style="width:90%">
                 <thead>
                     <tr>
-                        <th colspan="9">Current Market</th>
+                        <th colspan="11">Current Market</th>
                     </tr>
                     <tr>
                         <th>Month</th>
                         <th>Futures</th>
                         <th>Expiration</th>
-                        <th>Volatility</th>
-                        <th>Volatility</th>
+                        <th>Underlying Closing Price</th>
+                        <th>Product Strike</th>
+                        <th>Closing Volatility</th>
+                        <th>Volatility Override</th>
                         <th>Volatility Spread</th>
-                        <th>Price</th>
-                        <th>Markup</th>
-                        <th>Final Price</th>
+                        <th>Product Price</th>
+                        <th>Product Markup</th>
+                        <th>Product Final Price</th>
                 <tbody>
                     <%  int i = 0;
                         int currentCount = 1;
@@ -61,6 +69,8 @@
                         <td><input id="<%= ("monthCurrent" + currentCount)%>" type="text" name="<%= ("monthCurrent" + currentCount)%>" value="" readonly style="background-color: transparent; text-align: center; border: 0px"/></td>
                         <td><input id="<%= ("futuresCurrent" + currentCount)%>" type="text" name="<%= ("futuresCurrent" + currentCount)%>" value="" readonly style="background-color: transparent; text-align: center; border: 0px"/></td>
                         <td><input id="<%= ("expirationCurrent" + currentCount)%>" type="text" name="<%= ("expirationCurrent" + currentCount)%>" value="" readonly style="background-color: transparent; text-align: center; border: 0px"/></td>
+                        <td><input id="<%= ("marketCurrent" + currentCount)%>" type="text" name="<%= ("marketCurrent" + currentCount)%>" value="" readonly style="background-color: transparent; text-align: center; border: 0px"/></td>
+                        <td><input id="<%= ("strikeCurrent" + currentCount)%>" type="text" name="<%= ("strikeCurrent" + currentCount)%>" value="" readonly style="background-color: transparent; text-align: center; border: 0px"/></td>
                         <td><input id="<%= ("volatilityCurrent" + currentCount)%>" type="text" name="<%= ("volatilityCurrent" + currentCount)%>" value="" readonly style="background-color: transparent; text-align: center; border: 0px"/></td>
                         <td><input id="<%= ("volatilityInputCurrent" + currentCount)%>" type="text" name="<%= ("volatilityInputCurrent" + currentCount)%>" value="0" /></td>
                         <td><input id="<%= ("vSpreadInputCurrent" + currentCount)%>" type="text" name="<%= ("vSpreadInputCurrent" + currentCount)%>" value="0" /></td>
@@ -79,14 +89,16 @@
             <table id="theTable2" border="1" cellpadding="15" style="width:90%">
                 <thead>
                     <tr>
-                        <th colspan="9">+ <input style="width:15px; text-align:center" type="text" name="futureSet" value="2" size="10" /></th>
+                        <th colspan="11">Strike Shift: + <input style="width:15px; text-align:center" type="text" name="futureSet" value="2" size="10" /></th>
                     </tr>
                     <tr>
                         <th>Month</th>
                         <th>Futures</th>
                         <th>Expiration</th>
+                        <th>Market</th>
+                        <th>Strike</th>
                         <th>Volatility</th>
-                        <th>Volatility</th>
+                        <th>Volatility Override</th>
                         <th>Volatility Spread</th>
                         <th>Price</th>
                         <th>Markup</th>
@@ -99,6 +111,8 @@
                         <td><input id="<%= ("monthFutures" + futureCount)%>" type="text" name="<%= ("monthFutures" + futureCount)%>" value="" readonly style="background-color: transparent; text-align: center; border: 0px"/></td>
                         <td><input id="<%= ("futuresFutures" + futureCount)%>" type="text" name="<%= ("futuresFutures" + futureCount)%>" value="" readonly style="background-color: transparent; text-align: center; border: 0px"/></td>
                         <td><input id="<%= ("expirationFutures" + futureCount)%>" type="text" name="<%= ("expirationFutures" + futureCount)%>" value="" readonly style="background-color: transparent; text-align: center; border: 0px"/></td>
+                        <td><input id="<%= ("marketFutures" + futureCount)%>" type="text" name="<%= ("marketFutures" + futureCount)%>" value="" readonly style="background-color: transparent; text-align: center; border: 0px"/></td>
+                        <td><input id="<%= ("strikeFutures" + futureCount)%>" type="text" name="<%= ("strikeFutures" + futureCount)%>" value="" readonly style="background-color: transparent; text-align: center; border: 0px"/></td>
                         <td><input id="<%= ("volatilityFutures" + futureCount)%>" type="text" name="<%= ("volatilityFutures" + futureCount)%>" value="" readonly style="background-color: transparent; text-align: center; border: 0px"/></td>
                         <td><input id="<%= ("volatilityInputFutures" + futureCount)%>" type="text" name="<%= ("volatilityInputFutures" + futureCount)%>" value="0" /></td>
                         <td><input id="<%= ("vSpreadInputFutures" + futureCount)%>" type="text" name="<%= ("vSpreadInputFutures" + futureCount)%>" value="0" /></td>
@@ -117,14 +131,16 @@
             <table id="theTable3" border="1" cellpadding="15" style="width:90%">
                 <thead>
                     <tr>
-                        <th colspan="9">- <input style="width:15px; text-align:center" type="text" name="pastSet" value="2" size="10" /></th>
+                        <th colspan="11">Strike Shift: - <input style="width:15px; text-align:center" type="text" name="pastSet" value="2" size="10" /></th>
                     </tr>
                     <tr>
                         <th>Month</th>
                         <th>Futures</th>
                         <th>Expiration</th>
+                        <th>Market</th>
+                        <th>Strike</th>
                         <th>Volatility</th>
-                        <th>Volatility</th>
+                        <th>Volatility Override</th>
                         <th>Volatility Spread</th>
                         <th>Price</th>
                         <th>Markup</th>
@@ -137,6 +153,8 @@
                         <td><input id="<%= ("monthPast" + pastCount)%>" type="text" name="<%= ("monthPast" + pastCount)%>" value="" readonly style="background-color: transparent; text-align: center; border: 0px"/></td>
                         <td><input id="<%= ("futuresPast" + pastCount)%>" type="text" name="<%= ("futuresPast" + pastCount)%>" value="" readonly style="background-color: transparent; text-align: center; border: 0px"/></td>
                         <td><input id="<%= ("expirationPast" + pastCount)%>" type="text" name="<%= ("expirationPast" + pastCount)%>" value="" readonly style="background-color: transparent; text-align: center; border: 0px"/></td>
+                        <td><input id="<%= ("marketPast" + pastCount)%>" type="text" name="<%= ("marketPast" + pastCount)%>" value="" readonly style="background-color: transparent; text-align: center; border: 0px"/></td>
+                        <td><input id="<%= ("strikePast" + pastCount)%>" type="text" name="<%= ("strikePast" + pastCount)%>" value="" readonly style="background-color: transparent; text-align: center; border: 0px"/></td>
                         <td><input id="<%= ("volatilityPast" + pastCount)%>" type="text" name="<%= ("volatilityPast" + pastCount)%>" value="" readonly style="background-color: transparent; text-align: center; border: 0px"/></td>
                         <td><input id="<%= ("volatilityInputPast" + pastCount)%>" type="text" name="<%= ("volatilityInputPast" + pastCount)%>" value="0" /></td>
                         <td><input id="<%= ("vSpreadInputPast" + pastCount)%>" type="text" name="<%= ("vSpreadInputPast" + pastCount)%>" value="0" /></td>
@@ -159,7 +177,24 @@
                 <input id="pastCount" type="hidden" name="pastCount" value="<%= pastCount%>" />
         </div>    
         </form> 
-                
+        <div class="fixed">
+            <table border="0">
+                <tbody>
+                    <tr>
+                        <td>
+                            <form name="homeForm" action="AdminHomePage.jsp" method="POST">
+                                <input id="backAndHome" type="submit" value="Return to Home Screen" name="homeButton" />
+                            </form>
+                        </td>
+                        <td>
+                            <form name="backForm" action="AdminHomePage.jsp" method="POST">
+                                <input id="backAndHome" type="submit" value="Go Back" name="backButton" />
+                            </form>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
     <script>
             var month;
             var today = new Date();
@@ -173,7 +208,7 @@
                 for(r=2;r<10;r++)
                 {
                     rowCount++;
-                    for(c=0;c<=8;c++)
+                    for(c=0;c<=10;c++)
                     {
                         if(c===0){
                             var switchChoice = currentMon + r - 1;
@@ -240,17 +275,22 @@
                                     document.getElementById("expirationFutures" + rowCount).value = lastBusDay.getDate() + "/" + (lastBusDay.getMonth()+1) + "/" + lastBusDay.getFullYear();
                                     document.getElementById("expirationPast" + rowCount).value = lastBusDay.getDate() + "/" + (lastBusDay.getMonth()+1) + "/" + lastBusDay.getFullYear(); 
                             }
+                            
                         }else if(c===3){
+                            //pull market price
+                        }else if(c===4){
+                            //add market and strike shift
+                        }else if(c===5){
                             document.getElementById("volatilityCurrent" + rowCount).value = "0";
                             document.getElementById("volatilityFutures" + rowCount).value = "5";
                             document.getElementById("volatilityPast" + rowCount).value = "10"; 
-                        }else if(c===4 || c===5 || c===7){
+                        }else if(c===6 || c===7 || c===9){
                             //These are inputs, this statement is to skip editing them
-                        }else if(c===6){
+                        }else if(c===8){
                             document.getElementById("priceCurrent" + rowCount).value = 50;
                             document.getElementById("priceFutures" + rowCount).value = 100;
                             document.getElementById("pricePast" + rowCount).value = 25; 
-                        }else if(c===8){
+                        }else if(c===10){
                             /**
                              * This part is not working
                              * I can't get the final price to be equal to the price plus the markup

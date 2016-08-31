@@ -22,12 +22,19 @@
                 ChannelPartner channelPartner = new ChannelPartner();
                 ResultSet cpData = channelPartner.getChannelPartners();
             %>
-            <table border="1" style="width:90%" cellpadding="10px">
+            
+            <% 
+                while(cpData.next()){
+                    if(cpData.getString("id_code").equals(new ChannelPartner().getPartnerIDByUsername(session.getAttribute("username").toString()))){
+            %>
+            <table border="1" style="width: 50%" cellpadding="10px">
                 <thead>
                     <tr>
-                        <th colspan="5">My Channel Partner Position</th>
+                        <th colspan="6" style="font-size: 25px"><%= cpData.getString("name")%> Position</th>
                     </tr>
                     <tr>
+                        <th></th>
+                        <th>Current Underlying Price</th>
                         <th>Delta</th>
                         <th>Gamma</th>
                         <th>Vega</th>
@@ -35,26 +42,176 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <% 
-                        while(cpData.next()){
-                            if(cpData.getString("id_code").equals(new ChannelPartner().getPartnerIDByUsername(session.getAttribute("username").toString()))){
-                    %>
-                        <tr>
-                            <td><%=cpData.getDouble("delta")%></td>
-                            <td><%=cpData.getDouble("gamma")%></td>
-                            <td><%=cpData.getDouble("vega")%></td>
-                            <td><%=cpData.getDouble("theta")%></td>
-                        </tr>
-                    <%           
-                            }
-                        }  
-                    %>
+                    <tr>
+                        <td size="20px"><b>Corn</b></td>
+                    </tr>
+                    <tr>
+                        <td id="positionMonth" size="20px">November 2016</td>
+                        <td></td>
+                        <td size="20px"><%= cpData.getString("delta")%></td>
+                        <td size="20px"><%= cpData.getString("gamma")%></td>
+                        <td size="20px"><%= cpData.getString("vega")%></td>
+                        <td size="20px"><%= cpData.getString("theta")%></td>
+                    </tr>
+                    <tr>
+                        <td id="positionMonth" size="20px">January 2017</td>
+                        <td></td>
+                        <td size="20px"><%= cpData.getString("delta")%></td>
+                        <td size="20px"><%= cpData.getString("gamma")%></td>
+                        <td size="20px"><%= cpData.getString("vega")%></td>
+                        <td size="20px"><%= cpData.getString("theta")%></td>
+                    </tr>
+                    <tr>
+                        <td id="positionMonth" size="20px">March 2017</td>
+                        <td></td>
+                        <td size="20px"><%= cpData.getString("delta")%></td>
+                        <td size="20px"><%= cpData.getString("gamma")%></td>
+                        <td size="20px"><%= cpData.getString("vega")%></td>
+                        <td size="20px"><%= cpData.getString("theta")%></td>
+                    </tr>
+                    <tr>
+                        <td id="positionMonth" size="20px">June 2017</td>
+                        <td></td>
+                        <td size="20px"><%= cpData.getString("delta")%></td>
+                        <td size="20px"><%= cpData.getString("gamma")%></td>
+                        <td size="20px"><%= cpData.getString("vega")%></td>
+                        <td size="20px"><%= cpData.getString("theta")%></td>
+                    </tr>
+                    <tr>
+                        <td id="positionMonth" size="20px">August 2017</td>
+                        <td></td>
+                        <td size="20px"><%= cpData.getString("delta")%></td>
+                        <td size="20px"><%= cpData.getString("gamma")%></td>
+                        <td size="20px"><%= cpData.getString("vega")%></td>
+                        <td size="20px"><%= cpData.getString("theta")%></td>
+                    </tr>
                     
+                    <tr>
+                        <td size="20px"><b>Wheat</b></td>
+                    </tr>
+                    <tr>
+                        <td id="positionMonth" size="20px">September 2016</td>
+                        <td></td>
+                        <td size="20px"><%= cpData.getString("delta")%></td>
+                        <td size="20px"><%= cpData.getString("gamma")%></td>
+                        <td size="20px"><%= cpData.getString("vega")%></td>
+                        <td size="20px"><%= cpData.getString("theta")%></td>
+                    </tr>
+                    <tr>
+                        <td id="positionMonth" size="20px">December 2016</td>
+                        <td></td>
+                        <td size="20px"><%= cpData.getString("delta")%></td>
+                        <td size="20px"><%= cpData.getString("gamma")%></td>
+                        <td size="20px"><%= cpData.getString("vega")%></td>
+                        <td size="20px"><%= cpData.getString("theta")%></td>
+                    </tr>
+                    <tr>
+                        <td id="positionMonth" size="20px">March 2017</td>
+                        <td></td>
+                        <td size="20px"><%= cpData.getString("delta")%></td>
+                        <td size="20px"><%= cpData.getString("gamma")%></td>
+                        <td size="20px"><%= cpData.getString("vega")%></td>
+                        <td size="20px"><%= cpData.getString("theta")%></td>
+                    </tr>
+                    <tr>
+                        <td id="positionMonth" size="20px">May 2017</td>
+                        <td></td>
+                        <td size="20px"><%= cpData.getString("delta")%></td>
+                        <td size="20px"><%= cpData.getString("gamma")%></td>
+                        <td size="20px"><%= cpData.getString("vega")%></td>
+                        <td size="20px"><%= cpData.getString("theta")%></td>
+                    </tr>
+                    
+                    <tr>
+                        <td size="20px"><b>Soybean Meal</b></td>
+                    </tr>
+                    <tr>
+                        <td id="positionMonth" size="20px">September 2016</td>
+                        <td></td>
+                        <td size="20px"><%= cpData.getString("delta")%></td>
+                        <td size="20px"><%= cpData.getString("gamma")%></td>
+                        <td size="20px"><%= cpData.getString("vega")%></td>
+                        <td size="20px"><%= cpData.getString("theta")%></td>
+                    </tr>
+                    <tr>
+                        <td id="positionMonth" size="20px">October 2016</td>
+                        <td></td>
+                        <td size="20px"><%= cpData.getString("delta")%></td>
+                        <td size="20px"><%= cpData.getString("gamma")%></td>
+                        <td size="20px"><%= cpData.getString("vega")%></td>
+                        <td size="20px"><%= cpData.getString("theta")%></td>
+                    </tr>
+                    <tr>
+                        <td id="positionMonth" size="20px">December 2016</td>
+                        <td></td>
+                        <td size="20px"><%= cpData.getString("delta")%></td>
+                        <td size="20px"><%= cpData.getString("gamma")%></td>
+                        <td size="20px"><%= cpData.getString("vega")%></td>
+                        <td size="20px"><%= cpData.getString("theta")%></td>
+                    </tr>
+                    <tr>
+                        <td id="positionMonth" size="20px">January 2017</td>
+                        <td></td>
+                        <td size="20px"><%= cpData.getString("delta")%></td>
+                        <td size="20px"><%= cpData.getString("gamma")%></td>
+                        <td size="20px"><%= cpData.getString("vega")%></td>
+                        <td size="20px"><%= cpData.getString("theta")%></td>
+                    </tr>
+                    <tr>
+                        <td id="positionMonth" size="20px">March 2017</td>
+                        <td></td>
+                        <td size="20px"><%= cpData.getString("delta")%></td>
+                        <td size="20px"><%= cpData.getString("gamma")%></td>
+                        <td size="20px"><%= cpData.getString("vega")%></td>
+                        <td size="20px"><%= cpData.getString("theta")%></td>
+                    </tr>
+                    <tr>
+                        <td id="positionMonth" size="20px">May 2017</td>
+                        <td></td>
+                        <td size="20px"><%= cpData.getString("delta")%></td>
+                        <td size="20px"><%= cpData.getString("gamma")%></td>
+                        <td size="20px"><%= cpData.getString("vega")%></td>
+                        <td size="20px"><%= cpData.getString("theta")%></td>
+                    </tr>
+                    <tr>
+                        <td id="positionMonth" size="20px">July 2017</td>
+                        <td></td>
+                        <td size="20px"><%= cpData.getString("delta")%></td>
+                        <td size="20px"><%= cpData.getString("gamma")%></td>
+                        <td size="20px"><%= cpData.getString("vega")%></td>
+                        <td size="20px"><%= cpData.getString("theta")%></td>
+                    </tr>
+                    <tr>
+                        <td id="positionMonth" size="20px">August 2017</td>
+                        <td></td>
+                        <td size="20px"><%= cpData.getString("delta")%></td>
+                        <td size="20px"><%= cpData.getString("gamma")%></td>
+                        <td size="20px"><%= cpData.getString("vega")%></td>
+                        <td size="20px"><%= cpData.getString("theta")%></td>
+                    </tr>
+                    <% }} %>
                 </tbody>
             </table>
 
         </div>
-        
+        <div class="fixed">
+            <table border="0">
+                <tbody>
+                    <tr>
+                        <td>
+                            <form name="homeForm" action="channelpartnerhome.jsp" method="POST">
+                                <input id="backAndHome" type="submit" value="Return to Home Screen" name="homeButton" />
+                            </form>
+                        </td>
+                        <td>
+                            <form name="backForm" action="channelpartnerhome.jsp" method="POST">
+                                <input id="backAndHome" type="submit" value="Go Back" name="backButton" />
+                            </form>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
         
     </body>
 </html>

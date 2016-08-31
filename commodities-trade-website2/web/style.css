@@ -38,3 +38,18 @@ h2 {
 table {
     border-collapse: collapse;
 }
+#positionMonth {
+    text-indent: 50px;
+}
+div.fixed {
+    position: fixed;
+    bottom: 0;
+    right: 0;
+    width: 400px;
+    height: 75px;
+}
+#backAndHome {
+    width: 200px;
+    padding-bottom: 20px;
+    padding-top: 20px;
+}

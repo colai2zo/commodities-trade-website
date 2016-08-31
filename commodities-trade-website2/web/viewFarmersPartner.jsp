@@ -28,9 +28,9 @@
             <table border="1" cellpadding="15%" style="width:90%">
             <thead>
                 <tr>
-                    <th>Farmer ID Number</th>
-                    <th>First Name</th>
-                    <th>Last Name</th>
+                    <th>Farm ID Number</th>
+                    <th>Farm Name</th>
+                    <th>Date Added</th>
                 </tr>
             </thead>
             <tbody>
@@ -44,7 +44,7 @@
                             <tr>
                                 <td name=<%=("partnerID" + farmCount)%>><%=farmData.getString("farmer_id")%></td>
                                 <td name=<%=("firstName" + farmCount)%>><%=farmData.getString("first_name")%></td>
-                                <td name=<%=("lastName" + farmCount)%>><%=farmData.getString("last_name")%></td>
+                                <td name=<%=("dateAdded" + farmCount)%>><%=farmData.getString("timestamp")%></td>
                             </tr>
                 <%
                         }
@@ -53,6 +53,23 @@
             </tbody>
         </table>
         </div>
-        
+        <div class="fixed">
+            <table border="0">
+                <tbody>
+                    <tr>
+                        <td>
+                            <form name="homeForm" action="channelpartnerhome.jsp" method="POST">
+                                <input id="backAndHome" type="submit" value="Return to Home Screen" name="homeButton" />
+                            </form>
+                        </td>
+                        <td>
+                            <form name="backForm" action="farmerInfoPartner.jsp" method="POST">
+                                <input id="backAndHome" type="submit" value="Go Back" name="backButton" />
+                            </form>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
     </body>
 </html>

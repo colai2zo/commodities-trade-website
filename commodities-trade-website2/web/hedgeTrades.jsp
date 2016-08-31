@@ -23,7 +23,6 @@
             <%
                 ChannelPartner channelPartner = new ChannelPartner();
                 ResultSet cpData = channelPartner.getChannelPartners();
-                int cpCount = 0;
                 %>
             <table border="0" cellpadding='15' >
                 <tbody>
@@ -93,6 +92,24 @@
             <form name="submitHedge" action="manageBook.jsp" method="POST">
                 <input id='button' type="submit" value="Submit" name="submitHedge" />
             </form>
+        </div>
+        <div class="fixed">
+            <table border="0">
+                <tbody>
+                    <tr>
+                        <td>
+                            <form name="homeForm" action="AdminHomePage.jsp" method="POST">
+                                <input id="backAndHome" type="submit" value="Return to Home Screen" name="homeButton" />
+                            </form>
+                        </td>
+                        <td>
+                            <form name="backForm" action="manageBook.jsp" method="POST">
+                                <input id="backAndHome" type="submit" value="Go Back" name="backButton" />
+                            </form>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
         </div>
     </body>
 </html>

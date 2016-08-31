@@ -5,6 +5,7 @@
 --%>
 <%@page import="java.sql.*"%>
 <%@page import="com.dutchessdevelopers.commoditieswebsite.Brokers" %>
+<%@page import="com.dutchessdevelopers.commoditieswebsite.ChannelPartner" %>
 <%Class.forName("com.mysql.jdbc.Driver");%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -16,12 +17,19 @@
          <script src="verifyAdmin.js"></script>
     </head>
     <body onload="">
+        <%
+                ChannelPartner channelPartner = new ChannelPartner();
+                ResultSet cpData = channelPartner.getChannelPartners();
+                %>
 	<div id="header">
 	    <h1>View, Edit, or Delete a Broker</h1>
 	</div>
 	<div id="central" align="center">
-	    <select name="Choose Channel Partner" align="left">
-            <option>Channel Partner 1</option>
+	    <select name="partnerChooser" align="left">
+                <option>Select A Channel Partner</option>
+                <% while(cpData.next()){ %>
+                    <option value="<%= cpData.getString("name") %>"><%= cpData.getString("name") %></option>    
+                <% } %>
             </select> <br>
         <% Brokers brokers = new Brokers();
            ResultSet brokerData = brokers.getBroker(); 
@@ -39,8 +47,10 @@
 		</tr>
 	    </thead>
 	    <tbody>
-                <% while(brokerData.next()) {
-                brokerCount = brokerData.getRow();
+                <% 
+                    while(brokerData.next()) {
+                        //if((brokerData.getString("channel_partner")).equals((request.getParameter("partnerChooser")))){
+                            brokerCount = brokerData.getRow();
                 %>
                 <tr>
                     <td><input type="text" name="<%= ("first" + brokerCount)%>" value="<%= brokerData.getString("first_name")%>" size="20px" /></td>
@@ -53,9 +63,15 @@
                     </td>
                     
                 </tr>
-                <% } %>
+                <%
+                   // }
+                }           
+                %>
 	    </tbody>
 	</table>
+        </form>
+        <form name="returnForm" action="AdminHomePage.jsp" method="post">
+            <input id="button" type="submit" value="Back to Admin Home Page" name="returnButton" />
         </form>
 
         <%
@@ -81,7 +97,24 @@
             }
         %>
 	</div>
-       
+        <div class="fixed">
+            <table border="0">
+                <tbody>
+                    <tr>
+                        <td>
+                            <form name="homeForm" action="AdminHomePage.jsp" method="POST">
+                                <input id="backAndHome" type="submit" value="Return to Home Screen" name="homeButton" />
+                            </form>
+                        </td>
+                        <td>
+                            <form name="backForm" action="brokeroptions.jsp" method="POST">
+                                <input id="backAndHome" type="submit" value="Go Back" name="backButton" />
+                            </form>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
     </body>
     
 </html>

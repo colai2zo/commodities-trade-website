@@ -43,14 +43,16 @@
                 <thead>
                     <tr>
                         <th>Farmer #</th>
+                        <th>Farmer Name</th>
                         <th>Order #</th>
                         <th>Description</th>
-                        <th>Futures Contract</th>
+                        <th>Futures</th>
+                        <th>Client Month</th>
                         <th>Quantity</th>
                         <th>Strike</th>
                         <th>Cost per Ton</th>
                         <th>Status</th>
-                        <th>View Contract</th>
+                        <th>View Confirmation</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -60,15 +62,17 @@
                     %>
                                 <tr>
                                     <td><%= orderData.getString("farmer_id")%></td>
+                                    <td><%= orderData.getString("first_name") + " " + orderData.getString("last_name") %></td>
                                     <td><%= orderData.getString("order_number")%></td>
                                     <td><%= orderData.getString("description")%></td>
                                     <td><%= orderData.getString("futures_contract")%></td>
+                                    <td>Client Month</td>
                                     <td><%= orderData.getString("quantity")%></td>
                                     <td><%= orderData.getString("strike")%></td>
                                     <td><%= orderData.getString("cost_per_ton")%></td>
                                     <td><%= orderData.getString("status")%></td>
                                     <td>
-                                        <input id="button" align="center" type="submit" value="View this contract" name="viewContractButton" />
+                                        <input id="button" align="center" type="submit" value="View Confirmation" name="viewContractButton" />
                                     </td>
                                 </tr>
                     <%        }
@@ -78,6 +82,24 @@
                 </tbody>
             </table>
 
+        </div>
+        <div class="fixed">
+            <table border="0">
+                <tbody>
+                    <tr>
+                        <td>
+                            <form name="homeForm" action="channelpartnerhome.jsp" method="POST">
+                                <input id="backAndHome" type="submit" value="Return to Home Screen" name="homeButton" />
+                            </form>
+                        </td>
+                        <td>
+                            <form name="backForm" action="channelpartnerhome.jsp" method="POST">
+                                <input id="backAndHome" type="submit" value="Go Back" name="backButton" />
+                            </form>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
         </div>
     </body>
 </html>

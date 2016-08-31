@@ -32,10 +32,6 @@
                     <th>Channel Partner Code</th>
                     <th>Channel Partner Name</th>
                     <th>Username</th>
-                    <th>Delta</th>
-                    <th>Vega</th>
-                    <th>Gamma</th>
-                    <th>Theta</th>
                     <th>Submit</th>
                     <th>Delete</th>
                 </thead>
@@ -44,13 +40,9 @@
                 cpCount = cpData.getRow();
                 %>
                 <tr>
-                    <td><%= cpData.getString("id_code")%><input type="hidden" value="<%= cpData.getString("id_code")%>" size="20px" name="<%="code" + cpCount%>"></td>
+                    <td><input type="text" name="<%="code" + cpCount%>" value="<%= cpData.getString("id_code")%>" size="20px" ></td>
                     <td><input type="text" name="<%= ("name" + cpCount)%>" value="<%= cpData.getString("name")%>" size="20px" /></td>
                     <td><input type="text" name="<%= ("username" + cpCount)%>" value="<%= cpData.getString("username")%>" size="20px" /></td>
-                    <td><input type="text" name="<%= ("delta" + cpCount)%>" value="<%= cpData.getDouble("delta")%>" size="20px" /></td>
-                    <td><input type="text" name="<%= ("vega" + cpCount)%>" value="<%= cpData.getDouble("vega")%>" size="20px" /></td>
-                    <td><input type="text" name="<%= ("gamma" + cpCount)%>" value="<%= cpData.getDouble("gamma")%>" size="20px" /></td>
-                    <td><input type="text" name="<%= ("theta" + cpCount)%>" value="<%= cpData.getDouble("theta")%>" size="20px" /></td>
                     <td>     
                             <input type="submit" value="Update" name="<%= ("submitButton" + cpCount)%>" />
                     </td>
@@ -94,6 +86,24 @@
                 }
             }
         %>
+        </div>
+        <div class="fixed">
+            <table border="0">
+                <tbody>
+                    <tr>
+                        <td>
+                            <form name="homeForm" action="AdminHomePage.jsp" method="POST">
+                                <input id="backAndHome" type="submit" value="Return to Home Screen" name="homeButton" />
+                            </form>
+                        </td>
+                        <td>
+                            <form name="backForm" action="partnerpage.jsp" method="POST">
+                                <input id="backAndHome" type="submit" value="Go Back" name="backButton" />
+                            </form>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
         </div>
     </body>
 </html>
